@@ -12,7 +12,7 @@ FROM deps AS builder
 
 WORKDIR /app
 
-COPY index.html vite.config.js ./
+COPY index.html vite.config.js .eslintrc.cjs .prettierrc ./
 COPY public ./public
 COPY src    ./src
 
@@ -36,29 +36,27 @@ RUN rm /etc/nginx/conf.d/default.conf
 # Custom nginx config for a React SPA (handles client-side routing)
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-COPY <<EOF /etc/nginx/conf.d/default.conf
+COPY <<"EOF" /etc/nginx/conf.d/default.conf
 server {
-    listen       80;
-    listen  [::]:80;
-    server_name  _;
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-    root   /usr/share/nginx/html;
-    index  index.html;
+    root /usr/share/nginx/html;
+    index index.html index.htm;
 
-    # Gzip
+    # Gzip compression
     gzip on;
-    gzip_types text/plain text/css application/json application/javascript
-               text/xml application/xml application/xml+rss text/javascript;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
 
-    # Cache static assets aggressively
+    # Cache static assets
     location ~* \.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|gif|ico|webp)$ {
-        expires 1y;
+        expires 30d;
         add_header Cache-Control "public, immutable";
     }
 
-    # SPA fallback — any unmatched path returns index.html
+    # Try to serve the request file, or fall back to index.html for client-side routing
     location / {
-        try_files $uri $uri/ /index.html;
+        try_files $uri /index.html;
     }
 }
 EOF

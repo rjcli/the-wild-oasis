@@ -10,7 +10,6 @@ yarn-error.log*
 .DS_Store
 coverage/
 public/uploads/
-prisma/migrations/
 scripts/
 .git/
 .husky/

@@ -11,7 +11,7 @@ COPY package.json yarn.lock ./
 # Install ALL deps (including devDeps needed for build & prisma generate)
 RUN yarn install --frozen-lockfile
 
-# Copy prisma schema so the client can be generated
+# Copy prisma schema and migrations so the client can be generated
 COPY prisma ./prisma
 RUN yarn prisma:generate
 
@@ -31,7 +31,7 @@ RUN yarn build
 # ─── Stage 3: runner (minimal production image) ──────────────────────────────
 FROM node:22-alpine AS runner
 
-RUN apk add --no-cache libc6-compat tini
+RUN apk add --no-cache libc6-compat tini curl openssl
 
 # Non-root user for security
 RUN addgroup --system --gid 1001 nodejs \
@@ -42,7 +42,7 @@ WORKDIR /app
 # Copy only production artifacts
 COPY --from=builder  --chown=appuser:nodejs /app/dist           ./dist
 COPY --from=deps     --chown=appuser:nodejs /app/node_modules   ./node_modules
-COPY --from=deps     --chown=appuser:nodejs /app/prisma         ./prisma
+COPY --from=builder  --chown=appuser:nodejs /app/prisma         ./prisma
 COPY                 --chown=appuser:nodejs package.json        ./
 
 # Upload directory (persisted via a named volume in compose)
@@ -56,5 +56,5 @@ EXPOSE 3000
 # tini as PID 1 for proper signal handling
 ENTRYPOINT ["/sbin/tini", "--"]
 
-# Run DB migrations then start the server
+# Run DB migrations then start the API server
 CMD ["sh", "-c", "node node_modules/.bin/prisma migrate deploy && node dist/server.js"]
