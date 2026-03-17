@@ -89,7 +89,10 @@ const ProtectedRoute = () => {
             <HiOutlineLockClosed />
             <span>Please log in to access this page</span>
           </AuthNotice>
-          <LoginForm formType='modal' onCloseModal={() => navigate('/dashboard')} />
+          <LoginForm
+            formType='modal'
+            onCloseModal={() => navigate('/dashboard')}
+          />
         </LoginCard>
       </Overlay>,
       document.body,

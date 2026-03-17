@@ -41,13 +41,15 @@ const Discount = styled.div`
 
 const CabinLink = styled.span`
   cursor: ${(p) => (p.$disabled ? 'not-allowed' : 'pointer')};
-  color: ${(p) => (p.$disabled ? 'var(--color-grey-400)' : 'var(--color-brand-600)')};
+  color: ${(p) =>
+    p.$disabled ? 'var(--color-grey-400)' : 'var(--color-brand-600)'};
   text-decoration: ${(p) => (p.$disabled ? 'none' : 'underline')};
   text-underline-offset: 3px;
   transition: color 0.2s;
 
   &:hover {
-    color: ${(p) => (p.$disabled ? 'var(--color-grey-400)' : 'var(--color-brand-700)')};
+    color: ${(p) =>
+      p.$disabled ? 'var(--color-grey-400)' : 'var(--color-brand-700)'};
   }
 `;
 
@@ -104,7 +106,14 @@ const CabinRow = ({ cabin, canManage = false, isBooked = false }) => {
           {isBooked && <BookedBadge>Booked</BookedBadge>}
         </CabinLink>
         {cabinNumber && (
-          <span style={{ display: 'block', fontSize: '1.2rem', fontWeight: 400, color: 'var(--color-grey-400)' }}>
+          <span
+            style={{
+              display: 'block',
+              fontSize: '1.2rem',
+              fontWeight: 400,
+              color: 'var(--color-grey-400)',
+            }}
+          >
             #{cabinNumber}
           </span>
         )}
@@ -123,7 +132,10 @@ const CabinRow = ({ cabin, canManage = false, isBooked = false }) => {
               <Menus.Toggle id={cabinId} />
 
               <Menus.List id={cabinId}>
-                <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+                <Menus.Button
+                  icon={<HiSquare2Stack />}
+                  onClick={handleDuplicate}
+                >
                   Duplicate
                 </Menus.Button>
 

@@ -96,7 +96,9 @@ const SettingInput = styled.input`
   font-weight: 600;
   color: var(--color-grey-700);
   background-color: var(--color-grey-0);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 
   &:focus {
     outline: none;
@@ -227,4 +229,3 @@ const UpdateSettingsForm = () => {
 };
 
 export default UpdateSettingsForm;
-

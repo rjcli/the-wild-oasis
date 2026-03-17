@@ -135,7 +135,10 @@ const CabinCollage = () => {
               : cabin.regularPrice;
 
           return (
-            <CabinCard key={cabin.id} onClick={() => navigate(`/cabins/${cabin.id}`)}>
+            <CabinCard
+              key={cabin.id}
+              onClick={() => navigate(`/cabins/${cabin.id}`)}
+            >
               <CabinImage src={cabin.image} alt={cabin.name} />
               <CabinOverlay>
                 <CabinLabel>

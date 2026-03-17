@@ -20,7 +20,11 @@ const Card = styled.div`
 const CardHeader = styled.div`
   padding: 2rem 2.8rem;
   border-bottom: 1px solid var(--color-grey-100);
-  background: linear-gradient(135deg, var(--color-brand-600) 0%, var(--color-brand-700) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-600) 0%,
+    var(--color-brand-700) 100%
+  );
 
   h2 {
     font-size: 1.8rem;
@@ -83,7 +87,9 @@ const StyledInput = styled.input`
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   color: var(--color-grey-700);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 
   &:focus {
     outline: none;
@@ -191,7 +197,9 @@ const CreateUserForm = () => {
                   })}
                 />
               </InputWrap>
-              {errors.fullName && <ErrorMsg>{errors.fullName.message}</ErrorMsg>}
+              {errors.fullName && (
+                <ErrorMsg>{errors.fullName.message}</ErrorMsg>
+              )}
             </FieldGroup>
 
             <FieldGroup>
@@ -238,7 +246,9 @@ const CreateUserForm = () => {
                   })}
                 />
               </InputWrap>
-              {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
+              {errors.password && (
+                <ErrorMsg>{errors.password.message}</ErrorMsg>
+              )}
             </FieldGroup>
 
             <FieldGroup>
@@ -255,7 +265,8 @@ const CreateUserForm = () => {
                   {...register('passwordConfirm', {
                     required: 'Please confirm the password',
                     validate: (value) =>
-                      value === getValues().password || 'Passwords do not match',
+                      value === getValues().password ||
+                      'Passwords do not match',
                   })}
                 />
               </InputWrap>

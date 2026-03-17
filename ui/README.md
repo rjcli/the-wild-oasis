@@ -40,7 +40,7 @@ The Wild Oasis UI provides a comprehensive user interface for hotel management o
 | Build Tool       | Vite 5.3                        |
 | Framework        | React 18.3                      |
 | Language         | JavaScript/JSX                  |
-| Styling          | Styled Components 6.1            |
+| Styling          | Styled Components 6.1           |
 | State Management | React Query (TanStack) 5.51     |
 | Routing          | React Router 6.25               |
 | Form Management  | React Hook Form 7.52            |
@@ -238,12 +238,14 @@ yarn prettier:write
 ## Features
 
 ### 📊 Dashboard
+
 - Key metrics overview (revenue, bookings, occupancy)
 - Sales trend charts
 - Recent bookings
 - Today's check-in/check-out activities
 
 ### 🏠 Cabin Management
+
 - List all cabins with images
 - Create new cabins with image upload
 - Edit cabin details
@@ -251,6 +253,7 @@ yarn prettier:write
 - Search and filter cabins
 
 ### 📅 Booking System
+
 - View all bookings with status
 - Filter by status (unconfirmed, checked_in, checked_out)
 - Sort by date or price
@@ -259,6 +262,7 @@ yarn prettier:write
 - Track booking status
 
 ### 👥 Guest Management
+
 - Browse all guests
 - View guest booking history
 - Create guest profiles
@@ -266,18 +270,21 @@ yarn prettier:write
 - Delete guests
 
 ### ✈️ Check-in/Check-out
+
 - Quick check-in form
 - Breakfast cost calculation
 - Payment status tracking
 - Check-out confirmation
 
 ### ⚙️ Settings
+
 - User profile management
 - Avatar upload
 - Change password
 - Hotel settings (booking rules, breakfast price)
 
 ### 🌓 Dark Mode
+
 - System preference detection
 - Manual theme toggle
 - Persistent theme selection
@@ -288,17 +295,20 @@ yarn prettier:write
 ### Component Structure
 
 **Feature-Based Organization**:
+
 - Each feature (bookings, cabins, etc.) is self-contained
 - Contains pages, components, and logic related to that feature
 - Easier to scale and maintain
 
 **Custom Hooks**:
+
 - `useDarkMode`: Dark/light theme management
 - `useLocalStorageState`: Persist state to localStorage
 - `useMoveBack`: Navigation back functionality
 - `useOutsideClick`: Close dropdowns/modals on outside click
 
 **Styled Components**:
+
 - CSS-in-JS for component-scoped styling
 - Dynamic styling based on props and theme
 - No CSS conflicts
@@ -306,6 +316,7 @@ yarn prettier:write
 ### State Management
 
 **React Query (TanStack Query)**:
+
 - Server state management
 - Automatic caching and synchronization
 - Background refetching
@@ -313,16 +324,19 @@ yarn prettier:write
 - Query invalidation
 
 **Component State**:
+
 - Local state with `useState`
 - Form state with `React Hook Form`
 
 **Persistent State**:
+
 - localStorage for user preferences (theme, preferences)
 - Custom `useLocalStorageState` hook
 
 ## Custom Hooks
 
 ### useDarkMode
+
 Manages dark/light theme:
 
 ```javascript
@@ -330,16 +344,15 @@ const { isDark, toggleDark } = useDarkMode();
 ```
 
 ### useLocalStorageState
+
 Persists state to localStorage:
 
 ```javascript
-const [value, setValue] = useLocalStorageState(
-  initialValue,
-  'storage-key'
-);
+const [value, setValue] = useLocalStorageState(initialValue, 'storage-key');
 ```
 
 ### useMoveBack
+
 Navigate back with fallback:
 
 ```javascript
@@ -348,6 +361,7 @@ const moveBack = useMoveBack();
 ```
 
 ### useOutsideClick
+
 Close element when clicking outside:
 
 ```javascript
@@ -368,10 +382,10 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export const apiCall = async (endpoint, options = {}) => {
   const token = localStorage.getItem('accessToken');
-  
+
   const headers = {
     'Content-Type': 'application/json',
-    ...(token && { 'Authorization': `Bearer ${token}` }),
+    ...(token && { Authorization: `Bearer ${token}` }),
     ...options.headers,
   };
 
@@ -403,10 +417,11 @@ export const useBookings = () => {
 
 export const useCreateBooking = () => {
   return useMutation({
-    mutationFn: (data) => apiCall('/bookings', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    }),
+    mutationFn: (data) =>
+      apiCall('/bookings', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }),
     onSuccess: () => {
       // Invalidate and refetch bookings
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
@@ -489,17 +504,17 @@ const Dashboard = lazy(() => import('./pages/Dashboard'));
 
 <Suspense fallback={<Loading />}>
   <Dashboard />
-</Suspense>
+</Suspense>;
 ```
 
 ### Image Optimization
 
 ```javascript
 // Serve appropriately sized images
-<img 
-  src="cabin.jpg?w=400&h=300&fit=cover" 
-  srcSet="cabin.jpg?w=800&h=600 2x"
-  alt="Cabin" 
+<img
+  src='cabin.jpg?w=400&h=300&fit=cover'
+  srcSet='cabin.jpg?w=800&h=600 2x'
+  alt='Cabin'
 />
 ```
 
@@ -582,6 +597,7 @@ yarn build
 ### Deployment Options
 
 #### Vercel
+
 ```bash
 # Install Vercel CLI
 npm i -g vercel
@@ -591,6 +607,7 @@ vercel
 ```
 
 #### Netlify
+
 ```bash
 # Install Netlify CLI
 npm i -g netlify-cli
@@ -698,14 +715,14 @@ git push origin feature/my-feature
 
 ## Key Files to Know
 
-| File | Purpose |
-| ---- | --------- |
-| `src/App.jsx` | Main app router and layout |
-| `src/main.jsx` | App entry point |
-| `vite.config.js` | Vite configuration |
-| `jest.config.js` | Jest testing config |
-| `jest.setup.js` | Jest setup and mocks |
-| `.env.example` | Environment template |
+| File             | Purpose                    |
+| ---------------- | -------------------------- |
+| `src/App.jsx`    | Main app router and layout |
+| `src/main.jsx`   | App entry point            |
+| `vite.config.js` | Vite configuration         |
+| `jest.config.js` | Jest testing config        |
+| `jest.setup.js`  | Jest setup and mocks       |
+| `.env.example`   | Environment template       |
 
 ## Performance Tips
 
@@ -727,6 +744,7 @@ git push origin feature/my-feature
 ## Support
 
 For issues or questions:
+
 - Check existing issues on GitHub
 - Read feature documentation
 - Review test files for examples

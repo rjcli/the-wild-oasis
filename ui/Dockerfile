@@ -30,6 +30,9 @@ RUN yarn build
 # ─── Stage 3: runner (nginx static server) ───────────────────────────────────
 FROM nginx:1.27-alpine AS runner
 
+# Install curl for healthcheck
+RUN apk add --no-cache curl
+
 # Remove default nginx site config
 RUN rm /etc/nginx/conf.d/default.conf
 

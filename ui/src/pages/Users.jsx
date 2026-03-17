@@ -55,11 +55,13 @@ const NewUsers = () => {
       </Row>
 
       {isAdmin ? (
-        view === 'list' ? <UsersList /> : <CreateUserForm />
+        view === 'list' ? (
+          <UsersList />
+        ) : (
+          <CreateUserForm />
+        )
       ) : (
-        <Notice>
-          Only administrators can manage user accounts.
-        </Notice>
+        <Notice>Only administrators can manage user accounts.</Notice>
       )}
     </Row>
   );

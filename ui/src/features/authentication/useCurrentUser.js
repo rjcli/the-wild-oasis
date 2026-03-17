@@ -5,7 +5,11 @@ import { hasStoredAuthTokens } from '../../services/apiClient';
 export const useCurrentUser = () => {
   const hasStoredSession = hasStoredAuthTokens();
 
-  const { data: user, isLoading, error } = useQuery({
+  const {
+    data: user,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['currentUser'],
     queryFn: getCurrentUser,
     enabled: hasStoredSession,

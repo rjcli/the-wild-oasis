@@ -197,14 +197,23 @@ const CabinDetail = () => {
 
   if (isLoading)
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '6rem' }}>
+      <div
+        style={{ display: 'flex', justifyContent: 'center', padding: '6rem' }}
+      >
         <Spinner />
       </div>
     );
 
   if (!cabin)
     return (
-      <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--color-grey-500)', fontSize: '1.6rem' }}>
+      <div
+        style={{
+          padding: '4rem',
+          textAlign: 'center',
+          color: 'var(--color-grey-500)',
+          fontSize: '1.6rem',
+        }}
+      >
         Cabin not found.
       </div>
     );
@@ -243,7 +252,9 @@ const CabinDetail = () => {
 
         {isBooked && (
           <BookedBanner>
-            <HiOutlineCalendarDays style={{ width: '1.8rem', height: '1.8rem' }} />
+            <HiOutlineCalendarDays
+              style={{ width: '1.8rem', height: '1.8rem' }}
+            />
             This cabin is currently occupied — it has an active booking today.
           </BookedBanner>
         )}
@@ -259,8 +270,15 @@ const CabinDetail = () => {
                 </StatLabel>
                 <StatValue>
                   {cabin.maxCapacity}
-                  <span style={{ fontSize: '1.4rem', fontWeight: 400, color: 'var(--color-grey-500)' }}>
-                    {' '}guests
+                  <span
+                    style={{
+                      fontSize: '1.4rem',
+                      fontWeight: 400,
+                      color: 'var(--color-grey-500)',
+                    }}
+                  >
+                    {' '}
+                    guests
                   </span>
                 </StatValue>
               </StatCard>
@@ -304,7 +322,9 @@ const CabinDetail = () => {
             {cabin.description ? (
               <Description>{cabin.description}</Description>
             ) : (
-              <Description style={{ color: 'var(--color-grey-400)', fontStyle: 'italic' }}>
+              <Description
+                style={{ color: 'var(--color-grey-400)', fontStyle: 'italic' }}
+              >
                 No description provided.
               </Description>
             )}

@@ -35,11 +35,13 @@ const SignupForm = ({ onCloseModal, onOpenModal }) => {
           disabled={isSigningUp}
           {...register('fullName', {
             required: 'Full name is required',
-            minLength: { value: 2, message: 'Name must be at least 2 characters' },
+            minLength: {
+              value: 2,
+              message: 'Name must be at least 2 characters',
+            },
           })}
         />
       </FormRow>
-
       <FormRow label='Email address' error={errors?.email?.message}>
         <Input
           type='email'
@@ -50,8 +52,10 @@ const SignupForm = ({ onCloseModal, onOpenModal }) => {
           })}
         />
       </FormRow>
-
-      <FormRow label='Password (min 8 characters)' error={errors?.password?.message}>
+      <FormRow
+        label='Password (min 8 characters)'
+        error={errors?.password?.message}
+      >
         <Input
           type='password'
           id='password'
@@ -65,7 +69,6 @@ const SignupForm = ({ onCloseModal, onOpenModal }) => {
           })}
         />
       </FormRow>
-
       <FormRow label='Repeat password' error={errors?.passwordConfirm?.message}>
         <Input
           type='password'
@@ -78,9 +81,12 @@ const SignupForm = ({ onCloseModal, onOpenModal }) => {
           })}
         />
       </FormRow>
-
       <FormRow>
-        <Button variation='secondary' type='button' onClick={() => onCloseModal?.()}>
+        <Button
+          variation='secondary'
+          type='button'
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button disabled={isSigningUp}>Create account</Button>

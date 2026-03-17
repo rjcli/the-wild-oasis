@@ -20,7 +20,9 @@ export const getCabinsStatus = async ({ startDate, endDate } = {}) => {
   if (startDate) params.set('startDate', startDate);
   if (endDate) params.set('endDate', endDate);
   const qs = params.toString();
-  const response = await apiRequest(`/cabins/status${qs ? `?${qs}` : ''}`, { auth: false });
+  const response = await apiRequest(`/cabins/status${qs ? `?${qs}` : ''}`, {
+    auth: false,
+  });
   return response?.data?.bookedCabinIds || [];
 };
 

@@ -51,7 +51,11 @@ const LandingWrap = styled.div`
 `;
 
 const Hero = styled.section`
-  background: linear-gradient(135deg, var(--color-brand-600) 0%, var(--color-brand-800) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-600) 0%,
+    var(--color-brand-800) 100%
+  );
   border-radius: var(--border-radius-lg);
   padding: 5.6rem 4rem;
   display: flex;
@@ -168,7 +172,9 @@ const FeatureCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
-  transition: box-shadow 0.25s, transform 0.25s;
+  transition:
+    box-shadow 0.25s,
+    transform 0.25s;
   animation: ${fadeUp} 0.55s ease both;
   animation-delay: ${(p) => p.$delay || '0s'};
 
@@ -182,7 +188,11 @@ const FeatureIconWrap = styled.div`
   width: 4.8rem;
   height: 4.8rem;
   border-radius: var(--border-radius-md);
-  background: linear-gradient(135deg, var(--color-brand-100) 0%, var(--color-brand-50) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-100) 0%,
+    var(--color-brand-50) 100%
+  );
   display: grid;
   place-items: center;
   border: 1px solid var(--color-brand-200);
@@ -265,31 +275,51 @@ const FEATURES = [
     icon: <HiOutlineHomeModern />,
     name: 'Cabin Management',
     desc: 'View all available cabins with real-time availability, pricing details, and rich imagery. Explore individual cabin profiles and plan your perfect stay.',
-    bullets: ['Browse all cabin listings', 'Check live availability', 'View pricing & capacity'],
+    bullets: [
+      'Browse all cabin listings',
+      'Check live availability',
+      'View pricing & capacity',
+    ],
   },
   {
     icon: <HiOutlineCalendarDays />,
     name: 'Smart Booking System',
     desc: 'Create and track bookings with ease. The system handles date conflict detection, pricing breakdowns, and breakfast add-ons automatically.',
-    bullets: ['Conflict-free date selection', 'Auto price calculation', 'Breakfast & extras'],
+    bullets: [
+      'Conflict-free date selection',
+      'Auto price calculation',
+      'Breakfast & extras',
+    ],
   },
   {
     icon: <HiOutlineUsers />,
     name: 'Guest Profiles',
     desc: 'Every guest gets a dedicated profile with their personal details, nationality, and booking history — giving staff everything they need at a glance.',
-    bullets: ['Guest directory', 'Nationality & ID tracking', 'Booking history'],
+    bullets: [
+      'Guest directory',
+      'Nationality & ID tracking',
+      'Booking history',
+    ],
   },
   {
     icon: <HiOutlineCheckCircle />,
     name: 'Check-in / Check-out',
-    desc: "Streamlined arrival and departure flows. Confirm bookings, mark guests as checked in, collect payments, and complete check-outs in just a few clicks.",
-    bullets: ['One-click check-in', 'Payment confirmation', 'Smooth check-out flow'],
+    desc: 'Streamlined arrival and departure flows. Confirm bookings, mark guests as checked in, collect payments, and complete check-outs in just a few clicks.',
+    bullets: [
+      'One-click check-in',
+      'Payment confirmation',
+      'Smooth check-out flow',
+    ],
   },
   {
     icon: <HiOutlineChartBar />,
     name: 'Analytics & Reports',
     desc: 'Visual sales charts, duration-of-stay breakdowns, and real-time revenue statistics give management a clear, instant view of business performance.',
-    bullets: ['Revenue over time', 'Stay duration charts', 'Occupancy insights'],
+    bullets: [
+      'Revenue over time',
+      'Stay duration charts',
+      'Occupancy insights',
+    ],
   },
   {
     icon: <HiOutlineCog6Tooth />,
@@ -313,8 +343,9 @@ const WildOasisLanding = () => (
       </HeroBadge>
       <HeroTitle>Welcome to The Wild Oasis</HeroTitle>
       <HeroSub>
-        An exclusive collection of luxury wooden cabins nestled in nature. Discover the perfect
-        escape — serene landscapes, world-class amenities, and unforgettable experiences await you.
+        An exclusive collection of luxury wooden cabins nestled in nature.
+        Discover the perfect escape — serene landscapes, world-class amenities,
+        and unforgettable experiences await you.
       </HeroSub>
     </Hero>
 
@@ -341,8 +372,8 @@ const WildOasisLanding = () => (
     <div>
       <SectionTitle>Everything you need, in one place</SectionTitle>
       <SectionSub>
-        The Wild Oasis management platform covers every aspect of running a boutique cabin hotel —
-        from bookings to analytics.
+        The Wild Oasis management platform covers every aspect of running a
+        boutique cabin hotel — from bookings to analytics.
       </SectionSub>
       <FeaturesGrid>
         {FEATURES.map(({ icon, name, desc, bullets }, i) => (
@@ -367,7 +398,11 @@ const WildOasisLanding = () => (
 
 /* ─── Admin dashboard ────────────────────────────────────────────────────── */
 const AdminDashboard = () => {
-  const { bookings, isLoading: isLoadingBookings, numDays } = useRecentBookings();
+  const {
+    bookings,
+    isLoading: isLoadingBookings,
+    numDays,
+  } = useRecentBookings();
   const { confirmedStays, isLoading: isLoadingStays } = useRecentStays();
   const { cabins, isLoading: isLoadingCabins } = useCabins();
   const isLoadingStats = isLoadingBookings || isLoadingStays || isLoadingCabins;
@@ -410,4 +445,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

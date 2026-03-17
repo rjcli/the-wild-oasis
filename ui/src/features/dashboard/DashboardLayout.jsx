@@ -8,4 +8,3 @@ const StyledDashboardLayout = styled.div`
 `;
 
 export default StyledDashboardLayout;
-

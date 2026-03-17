@@ -98,12 +98,18 @@ export const createBooking = async (data) => {
   return normalizeBooking(response?.data?.booking);
 };
 
-export const checkCabinAvailability = async ({ cabinId, startDate, endDate }) => {
+export const checkCabinAvailability = async ({
+  cabinId,
+  startDate,
+  endDate,
+}) => {
   const params = new URLSearchParams({
     cabinId: String(cabinId),
     startDate: new Date(startDate).toISOString(),
     endDate: new Date(endDate).toISOString(),
   });
-  const response = await apiRequest(`/bookings/check-availability?${params.toString()}`);
+  const response = await apiRequest(
+    `/bookings/check-availability?${params.toString()}`,
+  );
   return response?.data?.available ?? true;
 };

@@ -38,7 +38,6 @@ const LoginForm = ({ onCloseModal, onSuccess, formType = 'modal' }) => {
           })}
         />
       </FormRow>
-
       <FormRow label='Password' error={errors?.password?.message}>
         <Input
           type='password'
@@ -50,9 +49,12 @@ const LoginForm = ({ onCloseModal, onSuccess, formType = 'modal' }) => {
           })}
         />
       </FormRow>
-
       <FormRow>
-        <Button variation='secondary' type='button' onClick={() => onCloseModal?.()}>
+        <Button
+          variation='secondary'
+          type='button'
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button size='large' disabled={isLoggingIn}>

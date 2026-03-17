@@ -65,7 +65,10 @@ export const updateCurrentUser = async ({ fullName, avatar }) => {
   return normalizeUser(response?.data?.user);
 };
 
-export const updateCurrentPassword = async ({ currentPassword, newPassword }) => {
+export const updateCurrentPassword = async ({
+  currentPassword,
+  newPassword,
+}) => {
   const response = await apiRequest('/auth/update-password', {
     method: 'PATCH',
     body: { currentPassword, newPassword },

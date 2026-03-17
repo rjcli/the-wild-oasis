@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HiChevronDown, HiChevronUp, HiOutlineArrowRightOnRectangle, HiOutlineLockClosed, HiOutlineMoon, HiOutlineSun, HiOutlineUserCircle } from 'react-icons/hi2';
+import {
+  HiChevronDown,
+  HiChevronUp,
+  HiOutlineArrowRightOnRectangle,
+  HiOutlineLockClosed,
+  HiOutlineMoon,
+  HiOutlineSun,
+  HiOutlineUserCircle,
+} from 'react-icons/hi2';
 import Button from './Button';
 import Modal from './Modal';
 import LoginForm from '../features/authentication/LoginForm';
@@ -162,7 +170,10 @@ const Header = () => {
 
           {user && (
             <UserMenuWrap ref={userMenuRef}>
-              <UserTrigger type='button' onClick={() => setIsUserMenuOpen((open) => !open)}>
+              <UserTrigger
+                type='button'
+                onClick={() => setIsUserMenuOpen((open) => !open)}
+              >
                 <UserAvatar />
                 {isUserMenuOpen ? <HiChevronUp /> : <HiChevronDown />}
               </UserTrigger>
@@ -170,14 +181,20 @@ const Header = () => {
               {isUserMenuOpen && (
                 <UserMenu>
                   <Modal.Open opens='update-profile'>
-                    <UserMenuButton type='button' onClick={() => setIsUserMenuOpen(false)}>
+                    <UserMenuButton
+                      type='button'
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
                       <HiOutlineUserCircle />
                       <span>Update profile</span>
                     </UserMenuButton>
                   </Modal.Open>
 
                   <Modal.Open opens='update-password'>
-                    <UserMenuButton type='button' onClick={() => setIsUserMenuOpen(false)}>
+                    <UserMenuButton
+                      type='button'
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
                       <HiOutlineLockClosed />
                       <span>Update password</span>
                     </UserMenuButton>
@@ -188,7 +205,8 @@ const Header = () => {
                     onClick={() => {
                       setIsUserMenuOpen(false);
                       logout(undefined, {
-                        onSuccess: () => navigate('/dashboard', { replace: true }),
+                        onSuccess: () =>
+                          navigate('/dashboard', { replace: true }),
                       });
                     }}
                     disabled={isLoggingOut}

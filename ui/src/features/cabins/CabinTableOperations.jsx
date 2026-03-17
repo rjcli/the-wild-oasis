@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import styled from 'styled-components';
-import { HiOutlineAdjustmentsHorizontal, HiOutlineBarsArrowDown, HiOutlineCheck } from 'react-icons/hi2';
+import {
+  HiOutlineAdjustmentsHorizontal,
+  HiOutlineBarsArrowDown,
+  HiOutlineCheck,
+} from 'react-icons/hi2';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 /* ─── Date-range pickers ──────────────────────────────────────────────────── */
@@ -123,8 +127,10 @@ const PanelItem = styled.li`
   border-radius: var(--border-radius-sm);
   font-size: 1.4rem;
   font-weight: ${(p) => (p.$active ? 600 : 400)};
-  color: ${(p) => (p.$active ? 'var(--color-brand-600)' : 'var(--color-grey-700)')};
-  background-color: ${(p) => (p.$active ? 'var(--color-brand-50)' : 'transparent')};
+  color: ${(p) =>
+    p.$active ? 'var(--color-brand-600)' : 'var(--color-grey-700)'};
+  background-color: ${(p) =>
+    p.$active ? 'var(--color-brand-50)' : 'transparent'};
   cursor: pointer;
   transition: background-color 0.15s;
 
@@ -189,8 +195,11 @@ const CabinTableOperations = () => {
     });
   };
 
-  const activeFilterLabel = FILTER_OPTIONS.find((o) => o.value === activeFilter)?.label ?? 'Filter';
-  const activeSortLabel = SORT_OPTIONS.find((o) => o.value === activeSort)?.label;
+  const activeFilterLabel =
+    FILTER_OPTIONS.find((o) => o.value === activeFilter)?.label ?? 'Filter';
+  const activeSortLabel = SORT_OPTIONS.find(
+    (o) => o.value === activeSort,
+  )?.label;
 
   return (
     <Toolbar>
@@ -224,7 +233,10 @@ const CabinTableOperations = () => {
         <DropBtn
           type='button'
           aria-expanded={filterOpen}
-          onClick={() => { setFilterOpen((o) => !o); setSortOpen(false); }}
+          onClick={() => {
+            setFilterOpen((o) => !o);
+            setSortOpen(false);
+          }}
         >
           <HiOutlineAdjustmentsHorizontal />
           Filter
@@ -255,7 +267,10 @@ const CabinTableOperations = () => {
         <DropBtn
           type='button'
           aria-expanded={sortOpen}
-          onClick={() => { setSortOpen((o) => !o); setFilterOpen(false); }}
+          onClick={() => {
+            setSortOpen((o) => !o);
+            setFilterOpen(false);
+          }}
         >
           <HiOutlineBarsArrowDown />
           {activeSortLabel ? `Sort: ${activeSortLabel}` : 'Sort'}

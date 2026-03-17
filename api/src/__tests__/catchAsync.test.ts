@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from "express";
 
 type AsyncHandler = (
   req: Request,
@@ -13,7 +13,7 @@ const catchAsyncForTest =
     fn(req, res, next).catch(next);
   };
 
-describe('catchAsync', () => {
+describe("catchAsync", () => {
   let mockReq: Partial<Request>;
   let mockRes: Partial<Response>;
   let mockNext: jest.Mock<NextFunction>;
@@ -24,11 +24,11 @@ describe('catchAsync', () => {
     mockNext = jest.fn();
   });
 
-  it('should call the async handler', async () => {
+  it("should call the async handler", async () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handler = jest.fn(
       async (_req: Request, res: Response, _next: NextFunction) => {
-        res.json({ status: 'success', data: { message: 'test' } });
+        res.json({ status: "success", data: { message: "test" } });
       },
     );
 
@@ -40,8 +40,8 @@ describe('catchAsync', () => {
     expect(handler).toHaveBeenCalled();
   });
 
-  it('should catch errors and call next with error', async () => {
-    const testError = new Error('Test error');
+  it("should catch errors and call next with error", async () => {
+    const testError = new Error("Test error");
     const handler = jest.fn(async () => {
       throw testError;
     });
@@ -54,8 +54,8 @@ describe('catchAsync', () => {
     expect(mockNext).toHaveBeenCalledWith(testError);
   });
 
-  it('should handle rejected promises', async () => {
-    const testError = new Error('Promise rejection');
+  it("should handle rejected promises", async () => {
+    const testError = new Error("Promise rejection");
     const handler = jest.fn(async () => {
       return Promise.reject(testError);
     });

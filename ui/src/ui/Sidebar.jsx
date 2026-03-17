@@ -40,7 +40,10 @@ const ToggleButton = styled.button`
   z-index: 2;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 
   &:hover {
     color: var(--color-grey-800);

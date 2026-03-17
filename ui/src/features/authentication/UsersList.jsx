@@ -57,11 +57,14 @@ const FilterBtn = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
-  background-color: ${(p) => (p.$active ? 'var(--color-brand-600)' : 'transparent')};
-  color: ${(p) => (p.$active ? 'var(--color-brand-50)' : 'var(--color-grey-600)')};
+  background-color: ${(p) =>
+    p.$active ? 'var(--color-brand-600)' : 'transparent'};
+  color: ${(p) =>
+    p.$active ? 'var(--color-brand-50)' : 'var(--color-grey-600)'};
 
   &:hover:not(:disabled) {
-    background-color: ${(p) => (p.$active ? 'var(--color-brand-600)' : 'var(--color-grey-100)')};
+    background-color: ${(p) =>
+      p.$active ? 'var(--color-brand-600)' : 'var(--color-grey-100)'};
   }
 `;
 
@@ -165,8 +168,10 @@ const RoleBadge = styled.span`
   border-radius: 100px;
   font-size: 1.2rem;
   font-weight: 600;
-  background-color: ${(p) => (p.$admin ? 'var(--color-green-100)' : 'var(--color-brand-100)')};
-  color: ${(p) => (p.$admin ? 'var(--color-green-700)' : 'var(--color-brand-700)')};
+  background-color: ${(p) =>
+    p.$admin ? 'var(--color-green-100)' : 'var(--color-brand-100)'};
+  color: ${(p) =>
+    p.$admin ? 'var(--color-green-700)' : 'var(--color-brand-700)'};
 
   & svg {
     width: 1.4rem;
@@ -208,16 +213,16 @@ const IconBtn = styled.button`
     p.$danger
       ? 'var(--color-red-700)'
       : p.$confirm
-      ? 'var(--color-green-700)'
-      : 'var(--color-grey-600)'};
+        ? 'var(--color-green-700)'
+        : 'var(--color-grey-600)'};
 
   &:hover {
     background-color: ${(p) =>
       p.$danger
         ? 'var(--color-red-100)'
         : p.$confirm
-        ? 'var(--color-green-100)'
-        : 'var(--color-grey-100)'};
+          ? 'var(--color-green-100)'
+          : 'var(--color-grey-100)'};
   }
 
   &:disabled {
@@ -310,7 +315,10 @@ const UsersList = () => {
   };
 
   const saveEdit = () => {
-    updateUser({ id: editingId, ...editForm }, { onSuccess: () => setEditingId(null) });
+    updateUser(
+      { id: editingId, ...editForm },
+      { onSuccess: () => setEditingId(null) },
+    );
   };
 
   const handleDeleteClick = (id) => {
@@ -343,7 +351,13 @@ const UsersList = () => {
       </Header>
 
       {isLoading ? (
-        <div style={{ padding: '3.2rem', display: 'flex', justifyContent: 'center' }}>
+        <div
+          style={{
+            padding: '3.2rem',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
           <Spinner />
         </div>
       ) : filtered.length === 0 ? (
@@ -380,14 +394,26 @@ const UsersList = () => {
                         {isEditing ? (
                           <InlineInput
                             value={editForm.fullName}
-                            onChange={(e) => setEditForm((f) => ({ ...f, fullName: e.target.value }))}
+                            onChange={(e) =>
+                              setEditForm((f) => ({
+                                ...f,
+                                fullName: e.target.value,
+                              }))
+                            }
                             disabled={isUpdating}
                           />
                         ) : (
                           <Name>
                             {u.fullName}
                             {isSelf && (
-                              <span style={{ fontSize: '1.1rem', color: 'var(--color-brand-600)', marginLeft: '0.6rem', fontWeight: 400 }}>
+                              <span
+                                style={{
+                                  fontSize: '1.1rem',
+                                  color: 'var(--color-brand-600)',
+                                  marginLeft: '0.6rem',
+                                  fontWeight: 400,
+                                }}
+                              >
                                 (you)
                               </span>
                             )}
@@ -406,7 +432,9 @@ const UsersList = () => {
                     {isEditing ? (
                       <RoleSelect
                         value={editForm.role}
-                        onChange={(e) => setEditForm((f) => ({ ...f, role: e.target.value }))}
+                        onChange={(e) =>
+                          setEditForm((f) => ({ ...f, role: e.target.value }))
+                        }
                         disabled={isUpdating}
                       >
                         <option value='admin'>Admin</option>
@@ -414,7 +442,11 @@ const UsersList = () => {
                       </RoleSelect>
                     ) : (
                       <RoleBadge $admin={u.role === 'admin'}>
-                        {u.role === 'admin' ? <HiOutlineShieldCheck /> : <HiOutlineUser />}
+                        {u.role === 'admin' ? (
+                          <HiOutlineShieldCheck />
+                        ) : (
+                          <HiOutlineUser />
+                        )}
                         {u.role === 'admin' ? 'Admin' : 'Staff'}
                       </RoleBadge>
                     )}
@@ -425,10 +457,18 @@ const UsersList = () => {
                     {isConfirmingDelete ? (
                       <ConfirmOverlay>
                         Delete {u.fullName}?
-                        <IconBtn $danger onClick={() => confirmDelete(u.id)} disabled={isDeleting} title='Confirm'>
+                        <IconBtn
+                          $danger
+                          onClick={() => confirmDelete(u.id)}
+                          disabled={isDeleting}
+                          title='Confirm'
+                        >
                           <HiOutlineCheck />
                         </IconBtn>
-                        <IconBtn onClick={() => setConfirmDeleteId(null)} title='Cancel'>
+                        <IconBtn
+                          onClick={() => setConfirmDeleteId(null)}
+                          title='Cancel'
+                        >
                           <HiOutlineXMark />
                         </IconBtn>
                       </ConfirmOverlay>
@@ -445,10 +485,18 @@ const UsersList = () => {
                     <Td>
                       {isEditing ? (
                         <ActionGroup>
-                          <IconBtn $confirm onClick={saveEdit} disabled={isUpdating} title='Save'>
+                          <IconBtn
+                            $confirm
+                            onClick={saveEdit}
+                            disabled={isUpdating}
+                            title='Save'
+                          >
                             <HiOutlineCheck />
                           </IconBtn>
-                          <IconBtn onClick={() => setEditingId(null)} title='Cancel'>
+                          <IconBtn
+                            onClick={() => setEditingId(null)}
+                            title='Cancel'
+                          >
                             <HiOutlineXMark />
                           </IconBtn>
                         </ActionGroup>
@@ -465,7 +513,11 @@ const UsersList = () => {
                             $danger
                             onClick={() => handleDeleteClick(u.id)}
                             disabled={isDeleting || isUpdating || isSelf}
-                            title={isSelf ? 'Cannot delete your own account' : 'Delete user'}
+                            title={
+                              isSelf
+                                ? 'Cannot delete your own account'
+                                : 'Delete user'
+                            }
                           >
                             <HiOutlineTrash />
                           </IconBtn>

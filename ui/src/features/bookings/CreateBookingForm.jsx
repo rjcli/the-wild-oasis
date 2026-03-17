@@ -40,7 +40,11 @@ const FormWrap = styled.div`
 const FormHeader = styled.div`
   padding: 2.4rem 2.8rem;
   border-bottom: 1px solid var(--color-grey-100);
-  background: linear-gradient(135deg, var(--color-brand-600) 0%, var(--color-brand-700) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-600) 0%,
+    var(--color-brand-700) 100%
+  );
 
   h2 {
     font-size: 1.8rem;
@@ -103,12 +107,15 @@ const Label = styled.label`
 const StyledSelect = styled.select`
   width: 100%;
   padding: 1rem 1.2rem;
-  border: 1.5px solid ${(p) => (p.$error ? 'var(--color-red-700)' : 'var(--color-grey-200)')};
+  border: 1.5px solid
+    ${(p) => (p.$error ? 'var(--color-red-700)' : 'var(--color-grey-200)')};
   border-radius: var(--border-radius-sm);
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   color: var(--color-grey-700);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 
   &:focus {
     outline: none;
@@ -125,12 +132,15 @@ const StyledSelect = styled.select`
 const StyledInput = styled.input`
   width: 100%;
   padding: 1rem 1.2rem;
-  border: 1.5px solid ${(p) => (p.$error ? 'var(--color-red-700)' : 'var(--color-grey-200)')};
+  border: 1.5px solid
+    ${(p) => (p.$error ? 'var(--color-red-700)' : 'var(--color-grey-200)')};
   border-radius: var(--border-radius-sm);
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   color: var(--color-grey-700);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 
   &:focus {
     outline: none;
@@ -155,7 +165,9 @@ const StyledTextarea = styled.textarea`
   resize: vertical;
   min-height: 8rem;
   font-family: inherit;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 
   &:focus {
     outline: none;
@@ -181,7 +193,11 @@ const ErrorMsg = styled.p`
 `;
 
 const PriceCard = styled.div`
-  background: linear-gradient(135deg, var(--color-brand-50) 0%, var(--color-brand-100) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-50) 0%,
+    var(--color-brand-100) 100%
+  );
   border: 1px solid var(--color-brand-200);
   border-radius: var(--border-radius-sm);
   padding: 1.6rem 2rem;
@@ -445,13 +461,20 @@ const CreateBookingForm = ({ onCloseModal }) => {
   };
 
   const updateGuest = (idx, field, value) => {
-    setGuests((g) => g.map((guest, i) => (i === idx ? { ...guest, [field]: value } : guest)));
-    setGuestErrors((e) => e.map((err, i) => (i === idx ? { ...err, [field]: undefined } : err)));
+    setGuests((g) =>
+      g.map((guest, i) => (i === idx ? { ...guest, [field]: value } : guest)),
+    );
+    setGuestErrors((e) =>
+      e.map((err, i) => (i === idx ? { ...err, [field]: undefined } : err)),
+    );
   };
 
   const validateGuests = () => {
     const errs = guests.map((g) => ({
-      name: g.name.trim().length < 2 ? 'Name must be at least 2 characters' : undefined,
+      name:
+        g.name.trim().length < 2
+          ? 'Name must be at least 2 characters'
+          : undefined,
       age:
         g.age !== '' && (Number(g.age) < 0 || Number(g.age) > 130)
           ? 'Age must be 0–130'
@@ -465,7 +488,13 @@ const CreateBookingForm = ({ onCloseModal }) => {
   /* ── Derived prices ── */
   const numNights =
     watchStartDate && watchEndDate
-      ? Math.max(0, differenceInCalendarDays(new Date(watchEndDate), new Date(watchStartDate)))
+      ? Math.max(
+          0,
+          differenceInCalendarDays(
+            new Date(watchEndDate),
+            new Date(watchStartDate),
+          ),
+        )
       : 0;
 
   const cabinPrice = selectedCabin
@@ -474,7 +503,9 @@ const CreateBookingForm = ({ onCloseModal }) => {
 
   const breakfastPrice = settings?.breakfastPrice ?? 15;
   const numGuests = guests.length;
-  const extrasPrice = watchHasBreakfast ? breakfastPrice * numNights * numGuests : 0;
+  const extrasPrice = watchHasBreakfast
+    ? breakfastPrice * numNights * numGuests
+    : 0;
   const totalPrice = cabinPrice + extrasPrice;
 
   /* ── Submit ── */
@@ -522,7 +553,9 @@ const CreateBookingForm = ({ onCloseModal }) => {
         },
       });
     } catch (err) {
-      import('react-hot-toast').then(({ default: toast }) => toast.error(err.message));
+      import('react-hot-toast').then(({ default: toast }) =>
+        toast.error(err.message),
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -533,7 +566,9 @@ const CreateBookingForm = ({ onCloseModal }) => {
   if (loadingCabins)
     return (
       <FormWrap>
-        <div style={{ padding: '4rem', display: 'flex', justifyContent: 'center' }}>
+        <div
+          style={{ padding: '4rem', display: 'flex', justifyContent: 'center' }}
+        >
           <Spinner />
         </div>
       </FormWrap>
@@ -590,9 +625,13 @@ const CreateBookingForm = ({ onCloseModal }) => {
                 $error={!!errors.startDate}
                 disabled={busy}
                 min={today()}
-                {...register('startDate', { required: 'Check-in date is required' })}
+                {...register('startDate', {
+                  required: 'Check-in date is required',
+                })}
               />
-              {errors.startDate && <ErrorMsg>{errors.startDate.message}</ErrorMsg>}
+              {errors.startDate && (
+                <ErrorMsg>{errors.startDate.message}</ErrorMsg>
+              )}
             </FieldGroup>
 
             <FieldGroup>
@@ -606,7 +645,8 @@ const CreateBookingForm = ({ onCloseModal }) => {
                 {...register('endDate', {
                   required: 'Check-out date is required',
                   validate: (v) =>
-                    new Date(v) > new Date(watchStartDate) || 'Check-out must be after check-in',
+                    new Date(v) > new Date(watchStartDate) ||
+                    'Check-out must be after check-in',
                 })}
               />
               {errors.endDate && <ErrorMsg>{errors.endDate.message}</ErrorMsg>}
@@ -619,13 +659,23 @@ const CreateBookingForm = ({ onCloseModal }) => {
               $available={availability === true}
             >
               {availability === 'checking' && (
-                <><HiOutlineClock />Checking availability…</>
+                <>
+                  <HiOutlineClock />
+                  Checking availability…
+                </>
               )}
               {availability === true && (
-                <><HiOutlineCheckCircle />Available for {numNights} {numNights === 1 ? 'night' : 'nights'}</>
+                <>
+                  <HiOutlineCheckCircle />
+                  Available for {numNights}{' '}
+                  {numNights === 1 ? 'night' : 'nights'}
+                </>
               )}
               {availability === false && (
-                <><HiOutlineCalendarDays />Already booked for those dates — choose different dates.</>
+                <>
+                  <HiOutlineCalendarDays />
+                  Already booked for those dates — choose different dates.
+                </>
               )}
             </AvailabilityBadge>
           )}
@@ -637,7 +687,16 @@ const CreateBookingForm = ({ onCloseModal }) => {
             <HiOutlineUsers />
             Guests
             {selectedCabin && (
-              <span style={{ marginLeft: 'auto', fontSize: '1.2rem', fontWeight: 400, color: 'var(--color-grey-500)', textTransform: 'none', letterSpacing: 0 }}>
+              <span
+                style={{
+                  marginLeft: 'auto',
+                  fontSize: '1.2rem',
+                  fontWeight: 400,
+                  color: 'var(--color-grey-500)',
+                  textTransform: 'none',
+                  letterSpacing: 0,
+                }}
+              >
                 {guests.length} / {maxCapacity} slots used
               </span>
             )}
@@ -656,7 +715,9 @@ const CreateBookingForm = ({ onCloseModal }) => {
                     $error={!!guestErrors[idx]?.name}
                     disabled={busy}
                   />
-                  {guestErrors[idx]?.name && <ErrorMsg>{guestErrors[idx].name}</ErrorMsg>}
+                  {guestErrors[idx]?.name && (
+                    <ErrorMsg>{guestErrors[idx].name}</ErrorMsg>
+                  )}
                 </FieldGroup>
 
                 <FieldGroup>
@@ -672,7 +733,9 @@ const CreateBookingForm = ({ onCloseModal }) => {
                     disabled={busy}
                     style={{ maxWidth: '10rem' }}
                   />
-                  {guestErrors[idx]?.age && <ErrorMsg>{guestErrors[idx].age}</ErrorMsg>}
+                  {guestErrors[idx]?.age && (
+                    <ErrorMsg>{guestErrors[idx].age}</ErrorMsg>
+                  )}
                 </FieldGroup>
 
                 <FieldGroup>
@@ -688,7 +751,9 @@ const CreateBookingForm = ({ onCloseModal }) => {
                     <option value='female'>Female</option>
                     <option value='other'>Other</option>
                   </StyledSelect>
-                  {guestErrors[idx]?.gender && <ErrorMsg>{guestErrors[idx].gender}</ErrorMsg>}
+                  {guestErrors[idx]?.gender && (
+                    <ErrorMsg>{guestErrors[idx].gender}</ErrorMsg>
+                  )}
                 </FieldGroup>
 
                 <RemoveBtn
@@ -711,8 +776,9 @@ const CreateBookingForm = ({ onCloseModal }) => {
           )}
           {selectedCabin && (
             <CapacityHint>
-              This cabin fits up to {maxCapacity} {maxCapacity === 1 ? 'guest' : 'guests'}.
-              The first guest is the primary booking contact.
+              This cabin fits up to {maxCapacity}{' '}
+              {maxCapacity === 1 ? 'guest' : 'guests'}. The first guest is the
+              primary booking contact.
             </CapacityHint>
           )}
 
@@ -727,16 +793,23 @@ const CreateBookingForm = ({ onCloseModal }) => {
                   type='checkbox'
                   id='hasBreakfast'
                   disabled={busy}
-                  style={{ width: '1.6rem', height: '1.6rem', cursor: 'pointer' }}
+                  style={{
+                    width: '1.6rem',
+                    height: '1.6rem',
+                    cursor: 'pointer',
+                  }}
                   {...register('hasBreakfast')}
                 />
-                Include breakfast ({formatCurrency(breakfastPrice)} / person / night)
+                Include breakfast ({formatCurrency(breakfastPrice)} / person /
+                night)
               </CheckboxRow>
             </FieldGroup>
           </FieldGrid>
 
           <FieldGroup>
-            <Label htmlFor='observations'>Observations / Special requests</Label>
+            <Label htmlFor='observations'>
+              Observations / Special requests
+            </Label>
             <StyledTextarea
               id='observations'
               placeholder='Allergy info, room preferences, arrival time…'
@@ -757,8 +830,11 @@ const CreateBookingForm = ({ onCloseModal }) => {
                 <PriceRow>
                   <span>Cabin price</span>
                   <span>
-                    {formatCurrency(selectedCabin.regularPrice - (selectedCabin.discount || 0))} ×{' '}
-                    {numNights} nights
+                    {formatCurrency(
+                      selectedCabin.regularPrice -
+                        (selectedCabin.discount || 0),
+                    )}{' '}
+                    × {numNights} nights
                   </span>
                 </PriceRow>
                 <PriceRow>
@@ -770,7 +846,8 @@ const CreateBookingForm = ({ onCloseModal }) => {
                     <PriceRow>
                       <span>Breakfast</span>
                       <span>
-                        {formatCurrency(breakfastPrice)} × {numNights} nights × {numGuests} guests
+                        {formatCurrency(breakfastPrice)} × {numNights} nights ×{' '}
+                        {numGuests} guests
                       </span>
                     </PriceRow>
                     <PriceRow>

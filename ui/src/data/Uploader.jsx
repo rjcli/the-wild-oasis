@@ -6,7 +6,9 @@ const Uploader = () => {
 
   const uploadAll = async () => {
     setIsLoading(true);
-    alert('Use the API seed command: npm run prisma:seed (from the api folder).');
+    alert(
+      'Use the API seed command: npm run prisma:seed (from the api folder).',
+    );
     setIsLoading(false);
   };
 

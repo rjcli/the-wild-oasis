@@ -200,6 +200,7 @@ LOG_LEVEL=debug
 ```
 
 > **Tip**: Generate secure secrets with:
+>
 > ```bash
 > node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 > ```
@@ -289,6 +290,7 @@ All routes are prefixed with `/api/v1`. Protected routes require `Authorization:
 | PATCH  | `/update-password` | Change password (protected)          |
 
 **Login Request:**
+
 ```json
 {
   "email": "admin@wilodoasis.com",
@@ -297,6 +299,7 @@ All routes are prefixed with `/api/v1`. Protected routes require `Authorization:
 ```
 
 **Login Response:**
+
 ```json
 {
   "status": "success",
@@ -316,56 +319,58 @@ All routes are prefixed with `/api/v1`. Protected routes require `Authorization:
 
 ### Cabins `/api/v1/cabins` 🔒 (Protected)
 
-| Method | Path   | Description                      |
-| ------ | ------ | -------------------------------- |
-| GET    | `/`    | List all cabins                  |
-| GET    | `/:id` | Get cabin details                |
-| POST   | `/`    | Create cabin (multipart/form)    |
-| PATCH  | `/:id` | Update cabin (multipart/form)    |
-| DELETE | `/:id` | Delete cabin                     |
+| Method | Path   | Description                   |
+| ------ | ------ | ----------------------------- |
+| GET    | `/`    | List all cabins               |
+| GET    | `/:id` | Get cabin details             |
+| POST   | `/`    | Create cabin (multipart/form) |
+| PATCH  | `/:id` | Update cabin (multipart/form) |
+| DELETE | `/:id` | Delete cabin                  |
 
 **Upload**: Use `multipart/form-data` with `image` field for cabin photos.
 
 ### Bookings `/api/v1/bookings` 🔒 (Protected)
 
-| Method | Path                          | Description                                      |
-| ------ | ----------------------------- | ------------------------------------------------ |
-| GET    | `/`                           | List bookings (with filter, sort, pagination)    |
-| GET    | `/:id`                        | Get booking details                              |
-| POST   | `/`                           | Create booking                                   |
-| PATCH  | `/:id`                        | Update booking (status, payment, etc.)           |
-| DELETE | `/:id`                        | Delete booking                                   |
-| GET    | `/today-activity`             | Today's check-ins/check-outs                     |
-| GET    | `/after-date?date=ISO`        | Bookings created after date (for charts)         |
-| GET    | `/stays-after-date?date=ISO`  | Stays starting after date (for charts)           |
+| Method | Path                         | Description                                   |
+| ------ | ---------------------------- | --------------------------------------------- |
+| GET    | `/`                          | List bookings (with filter, sort, pagination) |
+| GET    | `/:id`                       | Get booking details                           |
+| POST   | `/`                          | Create booking                                |
+| PATCH  | `/:id`                       | Update booking (status, payment, etc.)        |
+| DELETE | `/:id`                       | Delete booking                                |
+| GET    | `/today-activity`            | Today's check-ins/check-outs                  |
+| GET    | `/after-date?date=ISO`       | Bookings created after date (for charts)      |
+| GET    | `/stays-after-date?date=ISO` | Stays starting after date (for charts)        |
 
 **Query Parameters for GET /:**
+
 - `status`: `all`, `unconfirmed`, `checked_in`, `checked_out`
 - `sortBy`: `startDate-asc`, `startDate-desc`, `totalPrice-asc`, `totalPrice-desc`
 - `page`: integer (default: 1, size: 10)
 
 ### Guests `/api/v1/guests` 🔒 (Protected)
 
-| Method | Path   | Description                    |
-| ------ | ------ | ------------------------------ |
-| GET    | `/`    | List all guests                |
-| GET    | `/:id` | Get guest details & history    |
-| POST   | `/`    | Create guest                   |
-| PATCH  | `/:id` | Update guest                   |
-| DELETE | `/:id` | Delete guest                   |
+| Method | Path   | Description                 |
+| ------ | ------ | --------------------------- |
+| GET    | `/`    | List all guests             |
+| GET    | `/:id` | Get guest details & history |
+| POST   | `/`    | Create guest                |
+| PATCH  | `/:id` | Update guest                |
+| DELETE | `/:id` | Delete guest                |
 
 ### Settings `/api/v1/settings` 🔒 (Protected)
 
-| Method | Path | Description              |
-| ------ | ---- | ------------------------ |
-| GET    | `/`  | Get hotel settings       |
-| PATCH  | `/`  | Update hotel settings    |
+| Method | Path | Description           |
+| ------ | ---- | --------------------- |
+| GET    | `/`  | Get hotel settings    |
+| PATCH  | `/`  | Update hotel settings |
 
 **Settings Fields**: `minBookingLength`, `maxBookingLength`, `maxGuestsPerBooking`, `breakfastPrice`
 
 ### Static Files
 
 Uploaded images are served statically:
+
 ```
 GET /public/uploads/cabins/<filename>
 GET /public/uploads/avatars/<filename>
@@ -376,6 +381,7 @@ GET /public/uploads/avatars/<filename>
 ### Schema Overview
 
 Key models:
+
 - **User**: System user accounts (staff/admin)
 - **Cabin**: Room inventory with pricing
 - **Booking**: Reservation records
@@ -419,8 +425,8 @@ The API uses JWT (JSON Web Tokens):
 
 ```typescript
 // Protecting routes
-router.get('/protected', authenticate, handler);
-router.post('/admin-only', authenticate, authorize('admin'), handler);
+router.get("/protected", authenticate, handler);
+router.post("/admin-only", authenticate, authorize("admin"), handler);
 ```
 
 ## Validation
@@ -429,13 +435,13 @@ Input validation uses **Zod** schemas for type-safe validation:
 
 ```typescript
 const createCabinSchema = z.object({
-  name: z.string().min(1, 'Cabin name required'),
+  name: z.string().min(1, "Cabin name required"),
   maxCapacity: z.number().int().positive(),
   regularPrice: z.number().positive(),
   discount: z.number().nonnegative().optional(),
 });
 
-router.post('/cabins', validate(createCabinSchema), createCabin);
+router.post("/cabins", validate(createCabinSchema), createCabin);
 ```
 
 ## Error Handling
@@ -452,6 +458,7 @@ Errors are caught and returned in a consistent format:
 ```
 
 Common status codes:
+
 - `200`: Success
 - `201`: Created
 - `400`: Bad Request (validation failed)
@@ -478,17 +485,15 @@ yarn test:coverage
 ### Test Example
 
 ```typescript
-describe('AuthController', () => {
-  it('should login with valid credentials', async () => {
-    const res = await request(app)
-      .post('/api/v1/auth/login')
-      .send({
-        email: 'admin@wilodoasis.com',
-        password: 'password123',
-      });
+describe("AuthController", () => {
+  it("should login with valid credentials", async () => {
+    const res = await request(app).post("/api/v1/auth/login").send({
+      email: "admin@wilodoasis.com",
+      password: "password123",
+    });
 
     expect(res.status).toBe(200);
-    expect(res.body.data).toHaveProperty('accessToken');
+    expect(res.body.data).toHaveProperty("accessToken");
   });
 });
 ```
@@ -496,6 +501,7 @@ describe('AuthController', () => {
 ## Development Tips
 
 ### VS Code Extensions
+
 - ESLint
 - Prettier - Code formatter
 - Thunder Client (API testing)
@@ -524,6 +530,7 @@ node --inspect-brk dist/server.js
 ### Common Issues
 
 **Port Already in Use**
+
 ```bash
 # macOS/Linux
 lsof -i :3000
@@ -535,6 +542,7 @@ taskkill /PID <PID> /F
 ```
 
 **Database Connection Failed**
+
 ```bash
 # Check PostgreSQL is running
 psql -U postgres -h localhost
@@ -543,6 +551,7 @@ psql -U postgres -h localhost
 ```
 
 **Prisma Migration Issues**
+
 ```bash
 # Reset database  (development only!)
 npx prisma migrate reset
@@ -619,7 +628,7 @@ DATABASE_URL=postgresql://prod_user:secure_password@prod-host:5432/wild_oasis_pr
 ✅ JWT authentication & refresh tokens  
 ✅ Environment variable secrets  
 ✅ HTTPS in production  
-✅ Regular dependency updates  
+✅ Regular dependency updates
 
 ## Support & Contributing
 
@@ -636,4 +645,3 @@ For issues or contributions:
 **Last Updated**: March 2026  
 **Version**: 1.0.0  
 **API Spec**: REST (OpenAPI 3.0)
-

@@ -16,7 +16,10 @@ const CabinTable = () => {
   const checkIn = searchParams.get('checkIn') || undefined;
   const checkOut = searchParams.get('checkOut') || undefined;
 
-  const { bookedCabinIds } = useCabinsStatus({ startDate: checkIn, endDate: checkOut });
+  const { bookedCabinIds } = useCabinsStatus({
+    startDate: checkIn,
+    endDate: checkOut,
+  });
 
   if (isLoading) return <Spinner />;
 
@@ -42,7 +45,13 @@ const CabinTable = () => {
 
   return (
     <Menus>
-      <Table columns={isAdmin ? '0.6fr 1.8fr 2.2fr 1fr 1fr 1fr' : '0.6fr 1.8fr 2.2fr 1fr 1fr'}>
+      <Table
+        columns={
+          isAdmin
+            ? '0.6fr 1.8fr 2.2fr 1fr 1fr 1fr'
+            : '0.6fr 1.8fr 2.2fr 1fr 1fr'
+        }
+      >
         <Table.Header>
           <div></div>
           <div>Cabin</div>

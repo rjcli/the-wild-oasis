@@ -31,7 +31,8 @@ const StyledNavLink = styled(NavLink)`
   &:visited {
     display: flex;
     align-items: center;
-    justify-content: ${(props) => (props.$isCollapsed ? 'center' : 'flex-start')};
+    justify-content: ${(props) =>
+      props.$isCollapsed ? 'center' : 'flex-start'};
     gap: ${(props) => (props.$isCollapsed ? '0' : '1.2rem')};
 
     color: var(--color-grey-600);

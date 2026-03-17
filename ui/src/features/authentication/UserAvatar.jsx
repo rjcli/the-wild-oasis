@@ -42,7 +42,9 @@ const UserAvatar = () => {
       {user.avatar ? (
         <Avatar src={user.avatar} alt={user.fullName} />
       ) : (
-        <AvatarFallback>{user.fullName?.slice(0, 1)?.toUpperCase() || 'U'}</AvatarFallback>
+        <AvatarFallback>
+          {user.fullName?.slice(0, 1)?.toUpperCase() || 'U'}
+        </AvatarFallback>
       )}
       <span>{user.fullName}</span>
     </StyledUserAvatar>

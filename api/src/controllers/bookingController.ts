@@ -164,13 +164,11 @@ export const getTodayActivity = catchAsync(
       orderBy: { createdAt: "asc" },
     });
 
-    res
-      .status(200)
-      .json({
-        status: "success",
-        results: bookings.length,
-        data: { bookings },
-      });
+    res.status(200).json({
+      status: "success",
+      results: bookings.length,
+      data: { bookings },
+    });
   },
 );
 
@@ -201,13 +199,11 @@ export const getBookingsAfterDate = catchAsync(
       select: { createdAt: true, totalPrice: true, extrasPrice: true },
     });
 
-    res
-      .status(200)
-      .json({
-        status: "success",
-        results: bookings.length,
-        data: { bookings },
-      });
+    res.status(200).json({
+      status: "success",
+      results: bookings.length,
+      data: { bookings },
+    });
   },
 );
 
@@ -241,13 +237,11 @@ export const getStaysAfterDate = catchAsync(
       },
     });
 
-    res
-      .status(200)
-      .json({
-        status: "success",
-        results: bookings.length,
-        data: { bookings },
-      });
+    res.status(200).json({
+      status: "success",
+      results: bookings.length,
+      data: { bookings },
+    });
   },
 );
 
