@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Users (hotel staff accounts) ────────────────────────────────────────────
+
+enum UserRole {
+  admin
+  user
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  fullName  String   @map("full_name")
+  avatar    String?  // relative URL path stored, e.g. "uploads/avatars/file.jpg"
+  role      UserRole @default(user)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  createdBookings Booking[] @relation("BookingCreator")
+
+  @@map("users")
+}
+
+// ─── Cabins ───────────────────────────────────────────────────────────────────
+
+model Cabin {
+  id           Int       @id @default(autoincrement())
+  cabinNumber  String?   @unique @map("cabin_number") // short code, e.g. "001"
+  name         String    @unique
+  maxCapacity  Int       @map("max_capacity")
+  regularPrice Float     @map("regular_price")
+  discount     Float     @default(0)
+  image        String?   // relative URL path, e.g. "uploads/cabins/file.jpg"
+  description  String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  bookings Booking[]
+
+  @@map("cabins")
+}
+
+// ─── Guests ───────────────────────────────────────────────────────────────────
+
+model Guest {
+  id          Int      @id @default(autoincrement())
+  fullName    String   @map("full_name")
+  email       String   @unique
+  nationality String?
+  nationalId  String?  @map("national_id")
+  countryFlag String?  @map("country_flag")
+  age         Int?
+  gender      String?  // required at app level; nullable in DB for backward-compat
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  bookings Booking[]
+
+  @@map("guests")
+}
+
+// ─── Bookings ─────────────────────────────────────────────────────────────────
+
+enum BookingStatus {
+  unconfirmed
+  checked_in  @map("checked-in")
+  checked_out @map("checked-out")
+}
+
+model Booking {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now()) @map("created_at")
+  startDate    DateTime      @map("start_date")
+  endDate      DateTime      @map("end_date")
+  numNights    Int           @map("num_nights")
+  numGuests    Int           @map("num_guests")
+  status       BookingStatus @default(unconfirmed)
+  totalPrice   Float         @map("total_price")
+  cabinPrice   Float         @default(0) @map("cabin_price")
+  extrasPrice  Float         @default(0) @map("extras_price")
+  hasBreakfast Boolean       @default(false) @map("has_breakfast")
+  observations String?
+  isPaid       Boolean       @default(false) @map("is_paid")
+
+  cabinId     Int     @map("cabin_id")
+  guestId     Int     @map("guest_id")
+  createdById String? @map("created_by_id")
+
+  cabin     Cabin @relation(fields: [cabinId], references: [id], onDelete: Restrict)
+  guest     Guest @relation(fields: [guestId], references: [id], onDelete: Restrict)
+  createdBy User? @relation("BookingCreator", fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@map("bookings")
+}
+
+// ─── Settings (singleton row — always id = 1) ─────────────────────────────────
+
+model Settings {
+  id                  Int   @id @default(autoincrement())
+  minBookingLength    Int   @default(1)  @map("min_booking_length")
+  maxBookingLength    Int   @default(365) @map("max_booking_length")
+  maxGuestsPerBooking Int   @default(20) @map("max_guests_per_booking")
+  breakfastPrice      Float @default(15) @map("breakfast_price")
+
+  @@map("settings")
+}

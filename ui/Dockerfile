@@ -1,0 +1,68 @@
+# ─── Stage 1: deps ───────────────────────────────────────────────────────────
+FROM node:22-alpine AS deps
+
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+
+# ─── Stage 2: builder ────────────────────────────────────────────────────────
+FROM deps AS builder
+
+WORKDIR /app
+
+COPY index.html vite.config.js ./
+COPY public ./public
+COPY src    ./src
+
+# VITE_ vars must be available at build time so Vite can inline them.
+# Pass them via --build-arg and expose as ARG → ENV.
+ARG VITE_API_ORIGIN
+ARG VITE_API_URL
+
+ENV VITE_API_ORIGIN=$VITE_API_ORIGIN
+ENV VITE_API_URL=$VITE_API_URL
+
+RUN yarn build
+
+
+# ─── Stage 3: runner (nginx static server) ───────────────────────────────────
+FROM nginx:1.27-alpine AS runner
+
+# Remove default nginx site config
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Custom nginx config for a React SPA (handles client-side routing)
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+COPY <<EOF /etc/nginx/conf.d/default.conf
+server {
+    listen       80;
+    listen  [::]:80;
+    server_name  _;
+
+    root   /usr/share/nginx/html;
+    index  index.html;
+
+    # Gzip
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript
+               text/xml application/xml application/xml+rss text/javascript;
+
+    # Cache static assets aggressively
+    location ~* \.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|gif|ico|webp)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # SPA fallback — any unmatched path returns index.html
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+EOF
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
