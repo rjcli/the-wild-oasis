@@ -24,7 +24,6 @@ import { useRecentStays } from '../features/dashboard/useRecentStays';
 import { useCabins } from '../features/cabins/useCabins';
 import { useCurrentUser } from '../features/authentication/useCurrentUser';
 
-/* ─── Shared ─────────────────────────────────────────────────────────────── */
 const FullWidthLoader = styled.div`
   grid-column: 1 / -1;
   display: flex;
@@ -36,7 +35,6 @@ const FullWidthLoader = styled.div`
   border-radius: var(--border-radius-md);
 `;
 
-/* ─── Landing page styled components ─────────────────────────────────────── */
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -269,8 +267,7 @@ const StatLabel = styled.div`
   font-weight: 500;
 `;
 
-/* ─── Feature data ──────────────────────────────────────────────────────── */
-const FEATURES = [
+const features = [
   {
     icon: <HiOutlineHomeModern />,
     name: 'Cabin Management',
@@ -329,10 +326,8 @@ const FEATURES = [
   },
 ];
 
-/* ─── Landing page for non-admin users ───────────────────────────────────── */
 const WildOasisLanding = () => (
   <LandingWrap>
-    {/* Hero */}
     <Hero>
       <HeroIcon>
         <HiOutlineSparkles />
@@ -349,7 +344,6 @@ const WildOasisLanding = () => (
       </HeroSub>
     </Hero>
 
-    {/* Stats strip */}
     <div>
       <SectionTitle>By the numbers</SectionTitle>
       <SectionSub>A snapshot of what makes The Wild Oasis special</SectionSub>
@@ -368,7 +362,6 @@ const WildOasisLanding = () => (
       </StatsStrip>
     </div>
 
-    {/* Features grid */}
     <div>
       <SectionTitle>Everything you need, in one place</SectionTitle>
       <SectionSub>
@@ -376,7 +369,7 @@ const WildOasisLanding = () => (
         boutique cabin hotel — from bookings to analytics.
       </SectionSub>
       <FeaturesGrid>
-        {FEATURES.map(({ icon, name, desc, bullets }, i) => (
+        {features.map(({ icon, name, desc, bullets }, i) => (
           <FeatureCard key={name} $delay={`${i * 0.07}s`}>
             <FeatureIconWrap>{icon}</FeatureIconWrap>
             <FeatureName>{name}</FeatureName>
@@ -396,7 +389,6 @@ const WildOasisLanding = () => (
   </LandingWrap>
 );
 
-/* ─── Admin dashboard ────────────────────────────────────────────────────── */
 const AdminDashboard = () => {
   const {
     bookings,
@@ -437,7 +429,6 @@ const AdminDashboard = () => {
   );
 };
 
-/* ─── Default export — picks view based on role ──────────────────────────── */
 const Dashboard = () => {
   const { user, isLoading } = useCurrentUser();
   if (isLoading) return <Spinner />;

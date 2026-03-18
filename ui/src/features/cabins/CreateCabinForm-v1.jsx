@@ -14,7 +14,6 @@ const CreateCabinForm = () => {
 
   const { register, handleSubmit, reset, getValues, formState } = useForm();
   const { errors } = formState;
-  // console.log(errors);
 
   const { isLoading: isCreating, mutate } = useMutation({
     mutationFn: createCabin,
@@ -114,7 +113,6 @@ const CreateCabinForm = () => {
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
         <Button variation='secondary' type='reset'>
           Cancel
         </Button>

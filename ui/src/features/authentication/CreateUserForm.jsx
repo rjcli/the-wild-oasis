@@ -295,7 +295,6 @@ const CreateUserForm = () => {
   );
 };
 
-// eslint-disable-next-line no-undef
 CreateUserForm.displayName = 'CreateUserForm';
 
 export default CreateUserForm;

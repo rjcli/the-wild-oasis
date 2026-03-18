@@ -9,7 +9,6 @@ import {
 
 import DataItem from '../../components/DataItem';
 import { Flag } from '../../components/Flag';
-
 import { formatDistanceFromNow, formatCurrency } from '../../utils/helpers';
 
 const StyledBookingDataBox = styled.section`
@@ -17,7 +16,6 @@ const StyledBookingDataBox = styled.section`
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
-
   overflow: hidden;
 `;
 
@@ -101,7 +99,6 @@ const Footer = styled.footer`
   text-align: right;
 `;
 
-// A purely presentational component
 const BookingDataBox = ({ booking }) => {
   const {
     created_at,

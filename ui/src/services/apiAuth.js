@@ -35,7 +35,6 @@ export const signup = async ({ fullName, email, password }) => {
   return normalizeUser(payload?.user);
 };
 
-// Admin creates a user without affecting the admin's own session
 export const createUserAsAdmin = async ({ fullName, email, password }) => {
   const response = await apiRequest('/auth/signup', {
     method: 'POST',

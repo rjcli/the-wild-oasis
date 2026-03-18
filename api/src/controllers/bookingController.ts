@@ -1,18 +1,17 @@
-import { Request, Response, NextFunction } from "express";
-import { BookingStatus, Prisma } from "@prisma/client";
-import prisma from "../config/prisma";
-import { AppError } from "../utils/AppError";
-import { catchAsync } from "../utils/catchAsync";
-import { getToday } from "../utils/helpers";
+import { Request, Response, NextFunction } from 'express';
+import { BookingStatus, Prisma } from '@prisma/client';
+import prisma from '../config/prisma';
+import { AppError } from '../utils/AppError';
+import { catchAsync } from '../utils/catchAsync';
+import { getToday } from '../utils/helpers';
 import type {
   CreateBookingDto,
   UpdateBookingDto,
-} from "../schemas/bookingSchemas";
-import type { AuthRequest } from "../middleware/auth";
+} from '../schemas/bookingSchemas';
+import type { AuthRequest } from '../middleware/auth';
 
 const PAGE_SIZE = 10;
 
-// Shared booking selector — mirrors what the Supabase queries return
 const bookingListSelect = {
   id: true,
   createdAt: true,
@@ -55,7 +54,7 @@ export const checkCabinAvailability = catchAsync(
     };
     if (!cabinId || !startDate || !endDate)
       return next(
-        new AppError("Please provide cabinId, startDate and endDate.", 400),
+        new AppError('Please provide cabinId, startDate and endDate.', 400),
       );
 
     const cid = Number.parseInt(cabinId, 10);
@@ -66,19 +65,19 @@ export const checkCabinAvailability = catchAsync(
       Number.isNaN(start.getTime()) ||
       Number.isNaN(end.getTime())
     )
-      return next(new AppError("Invalid cabinId or date format.", 400));
+      return next(new AppError('Invalid cabinId or date format.', 400));
 
     const count = await prisma.booking.count({
       where: {
         cabinId: cid,
-        status: { not: "checked_out" },
+        status: { not: 'checked_out' },
         startDate: { lt: end },
         endDate: { gt: start },
       },
     });
     res
       .status(200)
-      .json({ status: "success", data: { available: count === 0 } });
+      .json({ status: 'success', data: { available: count === 0 } });
   },
 );
 
@@ -88,35 +87,35 @@ export const getAllBookings = catchAsync(
     const authReq = req as AuthRequest;
     const {
       status,
-      sortBy = "startDate-desc",
-      page = "1",
+      sortBy = 'startDate-desc',
+      page = '1',
     } = req.query as Record<string, string>;
 
     // --- Filter ---
     const where: Prisma.BookingWhereInput = {};
 
     // Non-admin users only see bookings they created
-    if (authReq.userRole !== "admin") {
+    if (authReq.userRole !== 'admin') {
       where.createdById = authReq.userId ?? null;
     }
 
-    if (status && status !== "all") {
-      if (["unconfirmed", "checked_in", "checked_out"].includes(status)) {
+    if (status && status !== 'all') {
+      if (['unconfirmed', 'checked_in', 'checked_out'].includes(status)) {
         where.status = status as BookingStatus;
       }
     }
 
     // --- Sort ---
-    const [sortField, sortDir] = sortBy.split("-");
+    const [sortField, sortDir] = sortBy.split('-');
     const allowedSortFields: Array<
       keyof Prisma.BookingOrderByWithRelationInput
-    > = ["startDate", "endDate", "totalPrice", "createdAt"];
+    > = ['startDate', 'endDate', 'totalPrice', 'createdAt'];
     const field = allowedSortFields.includes(
       sortField as keyof Prisma.BookingOrderByWithRelationInput,
     )
       ? (sortField as keyof Prisma.BookingOrderByWithRelationInput)
-      : "startDate";
-    const direction: Prisma.SortOrder = sortDir === "asc" ? "asc" : "desc";
+      : 'startDate';
+    const direction: Prisma.SortOrder = sortDir === 'asc' ? 'asc' : 'desc';
 
     // --- Pagination ---
     const pageNum = Math.max(1, Number.parseInt(page, 10));
@@ -133,7 +132,7 @@ export const getAllBookings = catchAsync(
       prisma.booking.count({ where }),
     ]);
 
-    res.status(200).json({ status: "success", count, data: { bookings } });
+    res.status(200).json({ status: 'success', count, data: { bookings } });
   },
 );
 
@@ -149,10 +148,10 @@ export const getTodayActivity = catchAsync(
       where: {
         OR: [
           {
-            status: "unconfirmed",
+            status: 'unconfirmed',
             startDate: { gte: todayStart, lte: todayEnd },
           },
-          { status: "checked_in", endDate: { gte: todayStart, lte: todayEnd } },
+          { status: 'checked_in', endDate: { gte: todayStart, lte: todayEnd } },
         ],
       },
       select: {
@@ -161,11 +160,11 @@ export const getTodayActivity = catchAsync(
           select: { fullName: true, nationality: true, countryFlag: true },
         },
       },
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: 'asc' },
     });
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       results: bookings.length,
       data: { bookings },
     });
@@ -180,14 +179,14 @@ export const getBookingsAfterDate = catchAsync(
     if (!date)
       return next(
         new AppError(
-          "Please provide a date query parameter (ISO string).",
+          'Please provide a date query parameter (ISO string).',
           400,
         ),
       );
 
     const from = new Date(date);
     if (Number.isNaN(from.getTime()))
-      return next(new AppError("Invalid date format.", 400));
+      return next(new AppError('Invalid date format.', 400));
 
     const bookings = await prisma.booking.findMany({
       where: {
@@ -200,7 +199,7 @@ export const getBookingsAfterDate = catchAsync(
     });
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       results: bookings.length,
       data: { bookings },
     });
@@ -215,14 +214,14 @@ export const getStaysAfterDate = catchAsync(
     if (!date)
       return next(
         new AppError(
-          "Please provide a date query parameter (ISO string).",
+          'Please provide a date query parameter (ISO string).',
           400,
         ),
       );
 
     const from = new Date(date);
     if (Number.isNaN(from.getTime()))
-      return next(new AppError("Invalid date format.", 400));
+      return next(new AppError('Invalid date format.', 400));
 
     const bookings = await prisma.booking.findMany({
       where: {
@@ -238,7 +237,7 @@ export const getStaysAfterDate = catchAsync(
     });
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       results: bookings.length,
       data: { bookings },
     });
@@ -249,16 +248,16 @@ export const getStaysAfterDate = catchAsync(
 export const getBooking = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = Number.parseInt(req.params.id, 10);
-    if (Number.isNaN(id)) return next(new AppError("Invalid booking ID.", 400));
+    if (Number.isNaN(id)) return next(new AppError('Invalid booking ID.', 400));
 
     const booking = await prisma.booking.findUnique({
       where: { id },
       select: bookingDetailSelect,
     });
     if (!booking)
-      return next(new AppError("No booking found with that ID.", 404));
+      return next(new AppError('No booking found with that ID.', 404));
 
-    res.status(200).json({ status: "success", data: { booking } });
+    res.status(200).json({ status: 'success', data: { booking } });
   },
 );
 
@@ -272,14 +271,14 @@ export const createBooking = catchAsync(async (req: Request, res: Response) => {
     select: bookingDetailSelect,
   });
 
-  res.status(201).json({ status: "success", data: { booking } });
+  res.status(201).json({ status: 'success', data: { booking } });
 });
 
 // ─── PATCH /api/v1/bookings/:id ───────────────────────────────────────────────
 export const updateBooking = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = Number.parseInt(req.params.id, 10);
-    if (Number.isNaN(id)) return next(new AppError("Invalid booking ID.", 400));
+    if (Number.isNaN(id)) return next(new AppError('Invalid booking ID.', 400));
 
     const body = req.body as UpdateBookingDto;
 
@@ -289,7 +288,7 @@ export const updateBooking = catchAsync(
       select: bookingDetailSelect,
     });
 
-    res.status(200).json({ status: "success", data: { booking } });
+    res.status(200).json({ status: 'success', data: { booking } });
   },
 );
 
@@ -297,10 +296,10 @@ export const updateBooking = catchAsync(
 export const deleteBooking = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = Number.parseInt(req.params.id, 10);
-    if (Number.isNaN(id)) return next(new AppError("Invalid booking ID.", 400));
+    if (Number.isNaN(id)) return next(new AppError('Invalid booking ID.', 400));
 
     await prisma.booking.delete({ where: { id } });
 
-    res.status(204).json({ status: "success", data: null });
+    res.status(204).json({ status: 'success', data: null });
   },
 );

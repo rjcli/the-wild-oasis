@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { AnyZodObject, ZodEffects, ZodError } from "zod";
+import { Request, Response, NextFunction } from 'express';
+import { AnyZodObject, ZodEffects, ZodError } from 'zod';
 
-import { AppError } from "../utils/AppError";
+import { AppError } from '../utils/AppError';
 
 export const validate =
   (schema: AnyZodObject | ZodEffects<AnyZodObject>) =>
@@ -12,8 +12,8 @@ export const validate =
     } catch (err) {
       if (err instanceof ZodError) {
         const message = err.errors
-          .map((e) => `${e.path.join(".")}: ${e.message}`)
-          .join("; ");
+          .map((e) => `${e.path.join('.')}: ${e.message}`)
+          .join('; ');
         next(new AppError(`Validation error — ${message}`, 400));
       } else {
         next(err);

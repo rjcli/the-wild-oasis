@@ -1,21 +1,21 @@
-import { Request, Response, NextFunction } from "express";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import path from "node:path";
-import sharp from "sharp";
-import { env } from "../config/env";
-import prisma from "../config/prisma";
-import { AppError } from "../utils/AppError";
-import { catchAsync } from "../utils/catchAsync";
-import { avatarUploadsDir } from "../middleware/upload";
-import type { AuthRequest } from "../middleware/auth";
+import { Request, Response, NextFunction } from 'express';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import path from 'node:path';
+import sharp from 'sharp';
+import { env } from '../config/env';
+import prisma from '../config/prisma';
+import { AppError } from '../utils/AppError';
+import { catchAsync } from '../utils/catchAsync';
+import { avatarUploadsDir } from '../middleware/upload';
+import type { AuthRequest } from '../middleware/auth';
 import type {
   LoginDto,
   SignupDto,
   UpdatePasswordDto,
   UpdateMeDto,
   AdminUpdateUserDto,
-} from "../schemas/authSchemas";
+} from '../schemas/authSchemas';
 
 const signAccessToken = (userId: string): string =>
   jwt.sign({ sub: userId }, env.JWT_SECRET, {
@@ -32,7 +32,7 @@ const sanitizeUser = (user: {
   email: string;
   fullName: string;
   avatar: string | null;
-  role: "admin" | "user";
+  role: 'admin' | 'user';
   createdAt: Date;
 }) => ({
   id: user.id,
@@ -49,14 +49,14 @@ export const login = catchAsync(
 
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      return next(new AppError("Invalid email or password.", 401));
+      return next(new AppError('Invalid email or password.', 401));
     }
 
     const accessToken = signAccessToken(user.id);
     const refreshToken = signRefreshToken(user.id);
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
         accessToken,
         refreshToken,
@@ -78,7 +78,7 @@ export const signup = catchAsync(async (req: Request, res: Response) => {
   const refreshToken = signRefreshToken(user.id);
 
   res.status(201).json({
-    status: "success",
+    status: 'success',
     data: {
       accessToken,
       refreshToken,
@@ -97,20 +97,20 @@ export const refreshToken = catchAsync(
     } catch {
       return next(
         new AppError(
-          "Invalid or expired refresh token. Please log in again.",
+          'Invalid or expired refresh token. Please log in again.',
           401,
         ),
       );
     }
 
     const user = await prisma.user.findUnique({ where: { id: decoded.sub } });
-    if (!user) return next(new AppError("User not found.", 401));
+    if (!user) return next(new AppError('User not found.', 401));
 
     const accessToken = signAccessToken(user.id);
     const newRefreshToken = signRefreshToken(user.id);
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: { accessToken, refreshToken: newRefreshToken },
     });
   },
@@ -130,9 +130,9 @@ export const getMe = catchAsync(
       },
     });
 
-    if (!user) return next(new AppError("User not found.", 404));
+    if (!user) return next(new AppError('User not found.', 404));
 
-    res.status(200).json({ status: "success", data: { user } });
+    res.status(200).json({ status: 'success', data: { user } });
   },
 );
 
@@ -145,7 +145,7 @@ export const updateMe = catchAsync(async (req: AuthRequest, res: Response) => {
     const filename = `avatar-${req.userId}-${Date.now()}.jpeg`;
     await sharp(req.file.buffer)
       .resize(200, 200)
-      .toFormat("jpeg")
+      .toFormat('jpeg')
       .jpeg({ quality: 80 })
       .toFile(path.join(avatarUploadsDir, filename));
     avatarPath = `uploads/avatars/${filename}`;
@@ -167,7 +167,7 @@ export const updateMe = catchAsync(async (req: AuthRequest, res: Response) => {
     },
   });
 
-  res.status(200).json({ status: "success", data: { user } });
+  res.status(200).json({ status: 'success', data: { user } });
 });
 
 export const getAllUsers = catchAsync(async (_req: Request, res: Response) => {
@@ -180,11 +180,11 @@ export const getAllUsers = catchAsync(async (_req: Request, res: Response) => {
       role: true,
       createdAt: true,
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
   });
   res
     .status(200)
-    .json({ status: "success", results: users.length, data: { users } });
+    .json({ status: 'success', results: users.length, data: { users } });
 });
 
 export const adminUpdateUser = catchAsync(
@@ -193,7 +193,7 @@ export const adminUpdateUser = catchAsync(
     const { fullName, role } = req.body as AdminUpdateUserDto;
 
     const existing = await prisma.user.findUnique({ where: { id } });
-    if (!existing) return next(new AppError("User not found.", 404));
+    if (!existing) return next(new AppError('User not found.', 404));
 
     const user = await prisma.user.update({
       where: { id },
@@ -208,7 +208,7 @@ export const adminUpdateUser = catchAsync(
       },
     });
 
-    res.status(200).json({ status: "success", data: { user } });
+    res.status(200).json({ status: 'success', data: { user } });
   },
 );
 
@@ -217,13 +217,13 @@ export const adminDeleteUser = catchAsync(
     const { id } = req.params;
 
     if (req.userId === id)
-      return next(new AppError("You cannot delete your own account.", 400));
+      return next(new AppError('You cannot delete your own account.', 400));
 
     const existing = await prisma.user.findUnique({ where: { id } });
-    if (!existing) return next(new AppError("User not found.", 404));
+    if (!existing) return next(new AppError('User not found.', 404));
 
     await prisma.user.delete({ where: { id } });
-    res.status(204).json({ status: "success", data: null });
+    res.status(204).json({ status: 'success', data: null });
   },
 );
 
@@ -232,10 +232,10 @@ export const updatePassword = catchAsync(
     const { currentPassword, newPassword } = req.body as UpdatePasswordDto;
 
     const user = await prisma.user.findUnique({ where: { id: req.userId } });
-    if (!user) return next(new AppError("User not found.", 404));
+    if (!user) return next(new AppError('User not found.', 404));
 
     if (!(await bcrypt.compare(currentPassword, user.password))) {
-      return next(new AppError("Your current password is wrong.", 401));
+      return next(new AppError('Your current password is wrong.', 401));
     }
 
     const hashed = await bcrypt.hash(newPassword, 12);
@@ -248,8 +248,8 @@ export const updatePassword = catchAsync(
     const newRefreshToken = signRefreshToken(user.id);
 
     res.status(200).json({
-      status: "success",
-      message: "Password updated successfully.",
+      status: 'success',
+      message: 'Password updated successfully.',
       data: { accessToken, refreshToken: newRefreshToken },
     });
   },

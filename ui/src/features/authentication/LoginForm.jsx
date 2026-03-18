@@ -5,7 +5,6 @@ import Input from '../../components/Input';
 import FormRow from '../../components/FormRow';
 import { useLogin } from './useLogin';
 
-// eslint-disable-next-line react/prop-types
 const LoginForm = ({ onCloseModal, onSuccess, formType = 'modal' }) => {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;

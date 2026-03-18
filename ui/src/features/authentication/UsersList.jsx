@@ -380,7 +380,6 @@ const UsersList = () => {
 
               return (
                 <Tr key={u.id}>
-                  {/* User */}
                   <Td>
                     <UserInfo>
                       {u.avatar ? (
@@ -427,7 +426,6 @@ const UsersList = () => {
                     </UserInfo>
                   </Td>
 
-                  {/* Role */}
                   <Td>
                     {isEditing ? (
                       <RoleSelect
@@ -452,7 +450,6 @@ const UsersList = () => {
                     )}
                   </Td>
 
-                  {/* Joined / confirm delete */}
                   <Td>
                     {isConfirmingDelete ? (
                       <ConfirmOverlay>
@@ -480,7 +477,6 @@ const UsersList = () => {
                     )}
                   </Td>
 
-                  {/* Admin actions */}
                   {isAdmin && (
                     <Td>
                       {isEditing ? (

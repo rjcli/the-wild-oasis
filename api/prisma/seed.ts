@@ -5,9 +5,9 @@
  * Run with:  npm run prisma:seed
  */
 
-import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
-import { addDays, subDays } from "date-fns";
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
+import { addDays, subDays } from 'date-fns';
 
 const prisma = new PrismaClient();
 
@@ -21,7 +21,7 @@ const fromToday = (numDays: number): Date => {
 };
 
 async function main() {
-  console.log("🌱 Seeding database…");
+  console.log('🌱 Seeding database…');
 
   await prisma.settings.upsert({
     where: { id: 1 },
@@ -34,73 +34,73 @@ async function main() {
     },
   });
 
-  const hashed = await bcrypt.hash("password123", 12);
+  const hashed = await bcrypt.hash('password123', 12);
   await prisma.user.upsert({
-    where: { email: "admin@wilodoasis.com" },
+    where: { email: 'admin@wilodoasis.com' },
     update: {},
     create: {
-      email: "admin@wilodoasis.com",
+      email: 'admin@wilodoasis.com',
       password: hashed,
-      fullName: "Admin User",
+      fullName: 'Admin User',
     },
   });
 
   const cabinData = [
     {
-      name: "001",
+      name: '001',
       maxCapacity: 2,
       regularPrice: 250,
       discount: 0,
-      description: "Cozy couples cabin nestled in the forest.",
+      description: 'Cozy couples cabin nestled in the forest.',
     },
     {
-      name: "002",
+      name: '002',
       maxCapacity: 2,
       regularPrice: 350,
       discount: 25,
-      description: "Romantic escape with private hot tub.",
+      description: 'Romantic escape with private hot tub.',
     },
     {
-      name: "003",
+      name: '003',
       maxCapacity: 4,
       regularPrice: 300,
       discount: 0,
-      description: "Comfortable family cabin for up to 4.",
+      description: 'Comfortable family cabin for up to 4.',
     },
     {
-      name: "004",
+      name: '004',
       maxCapacity: 4,
       regularPrice: 500,
       discount: 50,
-      description: "Luxury family retreat with gourmet kitchen.",
+      description: 'Luxury family retreat with gourmet kitchen.',
     },
     {
-      name: "005",
+      name: '005',
       maxCapacity: 6,
       regularPrice: 350,
       discount: 0,
-      description: "Spacious group cabin with fireplace.",
+      description: 'Spacious group cabin with fireplace.',
     },
     {
-      name: "006",
+      name: '006',
       maxCapacity: 6,
       regularPrice: 800,
       discount: 100,
-      description: "Premium large cabin with full amenities.",
+      description: 'Premium large cabin with full amenities.',
     },
     {
-      name: "007",
+      name: '007',
       maxCapacity: 8,
       regularPrice: 600,
       discount: 100,
-      description: "Grand cabin for large groups and families.",
+      description: 'Grand cabin for large groups and families.',
     },
     {
-      name: "008",
+      name: '008',
       maxCapacity: 10,
       regularPrice: 1400,
       discount: 0,
-      description: "Ultimate luxury grand cabin for 10 guests.",
+      description: 'Ultimate luxury grand cabin for 10 guests.',
     },
   ];
 
@@ -116,74 +116,74 @@ async function main() {
 
   const guestData = [
     {
-      fullName: "Jonas Schmedtmann",
-      email: "hello@jonas.io",
-      nationality: "Portugal",
-      nationalId: "3525436345",
-      countryFlag: "https://flagcdn.com/pt.svg",
+      fullName: 'Jonas Schmedtmann',
+      email: 'hello@jonas.io',
+      nationality: 'Portugal',
+      nationalId: '3525436345',
+      countryFlag: 'https://flagcdn.com/pt.svg',
     },
     {
-      fullName: "Jonathan Smith",
-      email: "johnsmith@test.eu",
-      nationality: "Great Britain",
-      nationalId: "4534593454",
-      countryFlag: "https://flagcdn.com/gb.svg",
+      fullName: 'Jonathan Smith',
+      email: 'johnsmith@test.eu',
+      nationality: 'Great Britain',
+      nationalId: '4534593454',
+      countryFlag: 'https://flagcdn.com/gb.svg',
     },
     {
-      fullName: "Jonatan Johansson",
-      email: "jonatan@example.com",
-      nationality: "Finland",
-      nationalId: "9374074454",
-      countryFlag: "https://flagcdn.com/fi.svg",
+      fullName: 'Jonatan Johansson',
+      email: 'jonatan@example.com',
+      nationality: 'Finland',
+      nationalId: '9374074454',
+      countryFlag: 'https://flagcdn.com/fi.svg',
     },
     {
-      fullName: "Jonas Mueller",
-      email: "jonas@example.eu",
-      nationality: "Germany",
-      nationalId: "1233212288",
-      countryFlag: "https://flagcdn.com/de.svg",
+      fullName: 'Jonas Mueller',
+      email: 'jonas@example.eu',
+      nationality: 'Germany',
+      nationalId: '1233212288',
+      countryFlag: 'https://flagcdn.com/de.svg',
     },
     {
-      fullName: "Jonas Anderson",
-      email: "anderson@example.com",
-      nationality: "Bolivia",
-      nationalId: "0988520146",
-      countryFlag: "https://flagcdn.com/bo.svg",
+      fullName: 'Jonas Anderson',
+      email: 'anderson@example.com',
+      nationality: 'Bolivia',
+      nationalId: '0988520146',
+      countryFlag: 'https://flagcdn.com/bo.svg',
     },
     {
-      fullName: "Jonathan Williams",
-      email: "jowi@gmail.com",
-      nationality: "United States",
-      nationalId: "633678543",
-      countryFlag: "https://flagcdn.com/us.svg",
+      fullName: 'Jonathan Williams',
+      email: 'jowi@gmail.com',
+      nationality: 'United States',
+      nationalId: '633678543',
+      countryFlag: 'https://flagcdn.com/us.svg',
     },
     {
-      fullName: "Emma Watson",
-      email: "emma@gmail.com",
-      nationality: "United Kingdom",
-      nationalId: "1234578901",
-      countryFlag: "https://flagcdn.com/gb.svg",
+      fullName: 'Emma Watson',
+      email: 'emma@gmail.com',
+      nationality: 'United Kingdom',
+      nationalId: '1234578901',
+      countryFlag: 'https://flagcdn.com/gb.svg',
     },
     {
-      fullName: "Mohammed Ali",
-      email: "mohammedali@yahoo.com",
-      nationality: "Egypt",
-      nationalId: "987543210",
-      countryFlag: "https://flagcdn.com/eg.svg",
+      fullName: 'Mohammed Ali',
+      email: 'mohammedali@yahoo.com',
+      nationality: 'Egypt',
+      nationalId: '987543210',
+      countryFlag: 'https://flagcdn.com/eg.svg',
     },
     {
-      fullName: "Maria Rodriguez",
-      email: "maria@gmail.com",
-      nationality: "Spain",
-      nationalId: "1098765321",
-      countryFlag: "https://flagcdn.com/es.svg",
+      fullName: 'Maria Rodriguez',
+      email: 'maria@gmail.com',
+      nationality: 'Spain',
+      nationalId: '1098765321',
+      countryFlag: 'https://flagcdn.com/es.svg',
     },
     {
-      fullName: "Li Mei",
-      email: "li.mei@hotmail.com",
-      nationality: "China",
-      nationalId: "102934756",
-      countryFlag: "https://flagcdn.com/cn.svg",
+      fullName: 'Li Mei',
+      email: 'li.mei@hotmail.com',
+      nationality: 'China',
+      nationalId: '102934756',
+      countryFlag: 'https://flagcdn.com/cn.svg',
     },
   ];
 
@@ -198,6 +198,7 @@ async function main() {
   );
 
   const breakfastPrice = 15;
+
   type BInput = {
     startDate: Date;
     endDate: Date;
@@ -208,8 +209,9 @@ async function main() {
     hasBreakfast: boolean;
     observations: string;
     isPaid: boolean;
-    status: "unconfirmed" | "checked_in" | "checked_out";
+    status: 'unconfirmed' | 'checked_in' | 'checked_out';
   };
+
   const bookingInput: BInput[] = [
     {
       startDate: fromToday(0),
@@ -219,9 +221,9 @@ async function main() {
       cabinIdx: 0,
       guestIdx: 1,
       hasBreakfast: true,
-      observations: "Gluten-free breakfast please.",
+      observations: 'Gluten-free breakfast please.',
       isPaid: false,
-      status: "unconfirmed",
+      status: 'unconfirmed',
     },
     {
       startDate: fromToday(-23),
@@ -231,9 +233,9 @@ async function main() {
       cabinIdx: 0,
       guestIdx: 2,
       hasBreakfast: true,
-      observations: "",
+      observations: '',
       isPaid: true,
-      status: "checked_out",
+      status: 'checked_out',
     },
     {
       startDate: fromToday(12),
@@ -243,9 +245,9 @@ async function main() {
       cabinIdx: 0,
       guestIdx: 3,
       hasBreakfast: false,
-      observations: "",
+      observations: '',
       isPaid: false,
-      status: "unconfirmed",
+      status: 'unconfirmed',
     },
     {
       startDate: fromToday(-45),
@@ -255,9 +257,9 @@ async function main() {
       cabinIdx: 1,
       guestIdx: 4,
       hasBreakfast: false,
-      observations: "",
+      observations: '',
       isPaid: true,
-      status: "checked_out",
+      status: 'checked_out',
     },
     {
       startDate: fromToday(15),
@@ -267,9 +269,9 @@ async function main() {
       cabinIdx: 1,
       guestIdx: 5,
       hasBreakfast: true,
-      observations: "",
+      observations: '',
       isPaid: true,
-      status: "unconfirmed",
+      status: 'unconfirmed',
     },
     {
       startDate: fromToday(-2),
@@ -279,9 +281,9 @@ async function main() {
       cabinIdx: 2,
       guestIdx: 8,
       hasBreakfast: false,
-      observations: "Bringing our small dog.",
+      observations: 'Bringing our small dog.',
       isPaid: true,
-      status: "checked_in",
+      status: 'checked_in',
     },
     {
       startDate: fromToday(-60),
@@ -291,9 +293,9 @@ async function main() {
       cabinIdx: 3,
       guestIdx: 6,
       hasBreakfast: true,
-      observations: "",
+      observations: '',
       isPaid: true,
-      status: "checked_out",
+      status: 'checked_out',
     },
     {
       startDate: fromToday(10),
@@ -303,9 +305,9 @@ async function main() {
       cabinIdx: 3,
       guestIdx: 7,
       hasBreakfast: false,
-      observations: "Anniversary trip.",
+      observations: 'Anniversary trip.',
       isPaid: false,
-      status: "unconfirmed",
+      status: 'unconfirmed',
     },
     {
       startDate: fromToday(-3),
@@ -315,9 +317,9 @@ async function main() {
       cabinIdx: 4,
       guestIdx: 9,
       hasBreakfast: true,
-      observations: "",
+      observations: '',
       isPaid: true,
-      status: "checked_in",
+      status: 'checked_in',
     },
     {
       startDate: fromToday(20),
@@ -327,9 +329,9 @@ async function main() {
       cabinIdx: 5,
       guestIdx: 0,
       hasBreakfast: true,
-      observations: "",
+      observations: '',
       isPaid: false,
-      status: "unconfirmed",
+      status: 'unconfirmed',
     },
   ];
 
@@ -360,7 +362,7 @@ async function main() {
     });
   }
 
-  console.log("✅ Seed complete.");
+  console.log('✅ Seed complete.');
 }
 
 main()

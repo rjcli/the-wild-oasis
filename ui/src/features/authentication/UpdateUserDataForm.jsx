@@ -5,11 +5,9 @@ import FileInput from '../../components/FileInput';
 import Form from '../../components/Form';
 import FormRow from '../../components/FormRow';
 import Input from '../../components/Input';
-
 import { useCurrentUser } from './useCurrentUser';
 import { useUpdateCurrentUser } from './useUpdateCurrentUser';
 
-// eslint-disable-next-line react/prop-types
 const UpdateUserDataForm = ({ onCloseModal }) => {
   const { user } = useCurrentUser();
   const { updateCurrentUser, isUpdatingUser } = useUpdateCurrentUser();

@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction } from "express";
-import prisma from "../../config/prisma";
-import * as cabinController from "../../controllers/cabinController";
+import { Request, Response, NextFunction } from 'express';
+import prisma from '../../config/prisma';
+import * as cabinController from '../../controllers/cabinController';
 
-jest.mock("../../config/prisma");
+jest.mock('../../config/prisma');
 
-describe("cabinController", () => {
+describe('cabinController', () => {
   let mockReq: Partial<Request>;
   let mockRes: Partial<Response>;
   let mockNext: jest.Mock<NextFunction>;
@@ -21,11 +21,11 @@ describe("cabinController", () => {
     mockNext = jest.fn();
   });
 
-  describe("getAllCabins", () => {
-    it("should return all cabins sorted by name", async () => {
+  describe('getAllCabins', () => {
+    it('should return all cabins sorted by name', async () => {
       const cabins = [
-        { id: 1, name: "Cabin A", capacity: 4 },
-        { id: 2, name: "Cabin B", capacity: 2 },
+        { id: 1, name: 'Cabin A', capacity: 4 },
+        { id: 2, name: 'Cabin B', capacity: 2 },
       ];
 
       (prisma.cabin.findMany as jest.Mock).mockResolvedValue(cabins);
@@ -38,18 +38,18 @@ describe("cabinController", () => {
       await Promise.resolve();
 
       expect(prisma.cabin.findMany).toHaveBeenCalledWith({
-        orderBy: { name: "asc" },
+        orderBy: { name: 'asc' },
       });
 
       expect(statusSpy).toHaveBeenCalledWith(200);
       expect(jsonSpy).toHaveBeenCalledWith({
-        status: "success",
+        status: 'success',
         results: 2,
         data: { cabins },
       });
     });
 
-    it("should return empty array if no cabins", async () => {
+    it('should return empty array if no cabins', async () => {
       (prisma.cabin.findMany as jest.Mock).mockResolvedValue([]);
 
       cabinController.getAllCabins(
@@ -60,18 +60,18 @@ describe("cabinController", () => {
       await Promise.resolve();
 
       expect(jsonSpy).toHaveBeenCalledWith({
-        status: "success",
+        status: 'success',
         results: 0,
         data: { cabins: [] },
       });
     });
   });
 
-  describe("getCabinsStatus", () => {
-    it("should return booked cabin IDs for date range", async () => {
+  describe('getCabinsStatus', () => {
+    it('should return booked cabin IDs for date range', async () => {
       mockReq.query = {
-        startDate: "2026-03-20",
-        endDate: "2026-03-25",
+        startDate: '2026-03-20',
+        endDate: '2026-03-25',
       };
 
       const bookings = [{ cabinId: 1 }, { cabinId: 2 }, { cabinId: 1 }];
@@ -87,12 +87,12 @@ describe("cabinController", () => {
 
       expect(statusSpy).toHaveBeenCalledWith(200);
       expect(jsonSpy).toHaveBeenCalledWith({
-        status: "success",
+        status: 'success',
         data: { bookedCabinIds: [1, 2] },
       });
     });
 
-    it("should return empty array if no bookings for date range", async () => {
+    it('should return empty array if no bookings for date range', async () => {
       (prisma.booking.findMany as jest.Mock).mockResolvedValue([]);
 
       cabinController.getCabinsStatus(
@@ -103,15 +103,15 @@ describe("cabinController", () => {
       await Promise.resolve();
 
       expect(jsonSpy).toHaveBeenCalledWith({
-        status: "success",
+        status: 'success',
         data: { bookedCabinIds: [] },
       });
     });
   });
 
-  describe("getCabin", () => {
-    it("should return 400 for invalid cabin ID", () => {
-      mockReq.params = { id: "invalid" };
+  describe('getCabin', () => {
+    it('should return 400 for invalid cabin ID', () => {
+      mockReq.params = { id: 'invalid' };
 
       cabinController.getCabin(
         mockReq as Request,
@@ -122,8 +122,8 @@ describe("cabinController", () => {
       expect(mockNext).toHaveBeenCalledWith(expect.any(Error));
     });
 
-    it("should return 404 if cabin not found", async () => {
-      mockReq.params = { id: "999" };
+    it('should return 404 if cabin not found', async () => {
+      mockReq.params = { id: '999' };
       (prisma.cabin.findUnique as jest.Mock).mockResolvedValue(null);
 
       cabinController.getCabin(
@@ -136,9 +136,9 @@ describe("cabinController", () => {
       expect(mockNext).toHaveBeenCalledWith(expect.any(Error));
     });
 
-    it("should return cabin details", async () => {
-      mockReq.params = { id: "1" };
-      const cabin = { id: 1, name: "Cabin A", capacity: 4, price: 100 };
+    it('should return cabin details', async () => {
+      mockReq.params = { id: '1' };
+      const cabin = { id: 1, name: 'Cabin A', capacity: 4, price: 100 };
 
       (prisma.cabin.findUnique as jest.Mock).mockResolvedValue(cabin);
 
@@ -151,22 +151,22 @@ describe("cabinController", () => {
 
       expect(statusSpy).toHaveBeenCalledWith(200);
       expect(jsonSpy).toHaveBeenCalledWith({
-        status: "success",
+        status: 'success',
         data: { cabin },
       });
     });
   });
 
-  describe("createCabin", () => {
-    it("should create cabin without image", async () => {
+  describe('createCabin', () => {
+    it('should create cabin without image', async () => {
       mockReq.body = {
-        name: "New Cabin",
+        name: 'New Cabin',
         capacity: 4,
         price: 100,
       };
       mockReq.file = undefined;
 
-      const cabin = { id: 1, name: "New Cabin", capacity: 4, price: 100 };
+      const cabin = { id: 1, name: 'New Cabin', capacity: 4, price: 100 };
 
       (prisma.cabin.create as jest.Mock).mockResolvedValue(cabin);
 
@@ -184,19 +184,19 @@ describe("cabinController", () => {
       expect(statusSpy).toHaveBeenCalledWith(201);
     });
 
-    it("should create cabin with image", async () => {
+    it('should create cabin with image', async () => {
       mockReq.body = {
-        name: "New Cabin",
+        name: 'New Cabin',
         capacity: 4,
         price: 100,
       };
 
       const cabin = {
         id: 1,
-        name: "New Cabin",
+        name: 'New Cabin',
         capacity: 4,
         price: 100,
-        image: "uploads/cabins/cabin-123.jpeg",
+        image: 'uploads/cabins/cabin-123.jpeg',
       };
 
       (prisma.cabin.create as jest.Mock).mockResolvedValue(cabin);
@@ -210,16 +210,16 @@ describe("cabinController", () => {
 
       expect(statusSpy).toHaveBeenCalledWith(201);
       expect(jsonSpy).toHaveBeenCalledWith({
-        status: "success",
+        status: 'success',
         data: { cabin },
       });
     });
   });
 
-  describe("updateCabin", () => {
-    it("should return 400 for invalid cabin ID", () => {
-      mockReq.params = { id: "invalid" };
-      mockReq.body = { name: "Updated" };
+  describe('updateCabin', () => {
+    it('should return 400 for invalid cabin ID', () => {
+      mockReq.params = { id: 'invalid' };
+      mockReq.body = { name: 'Updated' };
 
       cabinController.updateCabin(
         mockReq as Request,
@@ -230,12 +230,12 @@ describe("cabinController", () => {
       expect(mockNext).toHaveBeenCalledWith(expect.any(Error));
     });
 
-    it("should update cabin without image", async () => {
-      mockReq.params = { id: "1" };
-      mockReq.body = { name: "Updated Cabin" };
+    it('should update cabin without image', async () => {
+      mockReq.params = { id: '1' };
+      mockReq.body = { name: 'Updated Cabin' };
       mockReq.file = undefined;
 
-      const cabin = { id: 1, name: "Updated Cabin", capacity: 4 };
+      const cabin = { id: 1, name: 'Updated Cabin', capacity: 4 };
 
       (prisma.cabin.update as jest.Mock).mockResolvedValue(cabin);
 
@@ -255,9 +255,9 @@ describe("cabinController", () => {
     });
   });
 
-  describe("deleteCabin", () => {
-    it("should return 400 for invalid cabin ID", () => {
-      mockReq.params = { id: "invalid" };
+  describe('deleteCabin', () => {
+    it('should return 400 for invalid cabin ID', () => {
+      mockReq.params = { id: 'invalid' };
 
       cabinController.deleteCabin(
         mockReq as Request,
@@ -268,8 +268,8 @@ describe("cabinController", () => {
       expect(mockNext).toHaveBeenCalledWith(expect.any(Error));
     });
 
-    it("should delete cabin", async () => {
-      mockReq.params = { id: "1" };
+    it('should delete cabin', async () => {
+      mockReq.params = { id: '1' };
       (prisma.cabin.delete as jest.Mock).mockResolvedValue({});
 
       cabinController.deleteCabin(
@@ -285,7 +285,7 @@ describe("cabinController", () => {
 
       expect(statusSpy).toHaveBeenCalledWith(204);
       expect(jsonSpy).toHaveBeenCalledWith({
-        status: "success",
+        status: 'success',
         data: null,
       });
     });

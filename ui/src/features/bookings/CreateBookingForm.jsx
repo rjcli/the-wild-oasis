@@ -24,8 +24,6 @@ import { formatCurrency } from '../../utils/helpers';
 const today = () => format(new Date(), 'yyyy-MM-dd');
 const tomorrow = () => format(addDays(new Date(), 1), 'yyyy-MM-dd');
 
-/* ─── Styled components ────────────────────────────────────────────────────── */
-
 const FormWrap = styled.div`
   width: 72rem;
   max-width: 95vw;
@@ -276,7 +274,6 @@ const FormActions = styled.div`
   gap: 1.2rem;
 `;
 
-/* Guest slots */
 const GuestSlotList = styled.div`
   display: flex;
   flex-direction: column;
@@ -379,8 +376,6 @@ const CapacityHint = styled.p`
   margin-top: 0.4rem;
 `;
 
-/* ─── Component ────────────────────────────────────────────────────────────── */
-
 const emptyGuest = () => ({ name: '', age: '', gender: '' });
 
 const CreateBookingForm = ({ onCloseModal }) => {
@@ -445,7 +440,6 @@ const CreateBookingForm = ({ onCloseModal }) => {
       .catch(() => setAvailability(null));
   }, [watchCabinId, watchStartDate, watchEndDate]);
 
-  /* ── Guest slot helpers ── */
   const maxCapacity = selectedCabin?.maxCapacity || 1;
 
   const addGuestSlot = () => {
@@ -485,7 +479,6 @@ const CreateBookingForm = ({ onCloseModal }) => {
     return errs.every((e) => !e.name && !e.age && !e.gender);
   };
 
-  /* ── Derived prices ── */
   const numNights =
     watchStartDate && watchEndDate
       ? Math.max(
@@ -508,7 +501,6 @@ const CreateBookingForm = ({ onCloseModal }) => {
     : 0;
   const totalPrice = cabinPrice + extrasPrice;
 
-  /* ── Submit ── */
   const onSubmit = async (data) => {
     if (!availability) return;
     if (!validateGuests()) return;
@@ -583,7 +575,6 @@ const CreateBookingForm = ({ onCloseModal }) => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormBody>
-          {/* ── Cabin ── */}
           <SectionTitle>
             <HiOutlineHomeModern />
             Select cabin
@@ -611,7 +602,6 @@ const CreateBookingForm = ({ onCloseModal }) => {
 
           <Divider />
 
-          {/* ── Dates ── */}
           <SectionTitle>
             <HiOutlineCalendarDays />
             Dates
@@ -682,7 +672,6 @@ const CreateBookingForm = ({ onCloseModal }) => {
 
           <Divider />
 
-          {/* ── Guests ── */}
           <SectionTitle>
             <HiOutlineUsers />
             Guests
@@ -784,7 +773,6 @@ const CreateBookingForm = ({ onCloseModal }) => {
 
           <Divider />
 
-          {/* ── Extras ── */}
           <FieldGrid>
             <FieldGroup>
               <Label>Extras</Label>
@@ -818,7 +806,6 @@ const CreateBookingForm = ({ onCloseModal }) => {
             />
           </FieldGroup>
 
-          {/* ── Price summary ── */}
           {numNights > 0 && selectedCabin && (
             <>
               <Divider />

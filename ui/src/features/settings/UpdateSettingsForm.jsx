@@ -116,6 +116,7 @@ const SettingInput = styled.input`
   &::-webkit-outer-spin-button {
     -webkit-appearance: none;
   }
+  appearance: textfield;
   -moz-appearance: textfield;
 `;
 
@@ -125,7 +126,7 @@ const SavingDot = styled.span`
   font-style: italic;
 `;
 
-const SETTINGS = [
+const settings = [
   {
     field: 'minBookingLength',
     title: 'Minimum stay',
@@ -198,7 +199,7 @@ const UpdateSettingsForm = () => {
 
   return (
     <Grid>
-      {SETTINGS.map(({ field, title, desc, icon, color, unit, min, max }) => (
+      {settings.map(({ field, title, desc, icon, color, unit, min, max }) => (
         <SettingCard key={field}>
           <CardTop>
             <IconBadge $color={color}>{icon}</IconBadge>

@@ -12,7 +12,6 @@ import ButtonText from '../../components/ButtonText';
 import Spinner from '../../components/Spinner';
 import Modal from '../../components/Modal';
 import ConfirmDelete from '../../components/ConfirmDelete';
-
 import { useMoveBack } from '../../hooks/useMoveBack';
 import { useBooking } from './useBooking';
 import { useCheckout } from '../check-in-out/useCheckout';

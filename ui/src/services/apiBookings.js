@@ -44,7 +44,6 @@ export const getBooking = async (id) => {
   return normalizeBooking(response?.data?.booking);
 };
 
-// Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.
 export const getBookingsAfterDate = async (date) => {
   const response = await apiRequest(
     `/bookings/after-date?date=${encodeURIComponent(date)}`,
@@ -56,7 +55,6 @@ export const getBookingsAfterDate = async (date) => {
   }));
 };
 
-// Returns all STAYS that are were created after the given date
 export const getStaysAfterDate = async (date) => {
   const response = await apiRequest(
     `/bookings/stays-after-date?date=${encodeURIComponent(date)}`,
@@ -65,7 +63,6 @@ export const getStaysAfterDate = async (date) => {
   return (response?.data?.bookings || []).map(normalizeBooking);
 };
 
-// Activity means that there is a check in or a check out today
 export const getStaysTodayActivity = async () => {
   const response = await apiRequest('/bookings/today-activity');
   return (response?.data?.bookings || []).map(normalizeBooking);

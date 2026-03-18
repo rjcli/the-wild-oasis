@@ -11,9 +11,7 @@ const Stats = ({ bookings, confirmedStays, numDays, cabinCount }) => {
   const numBookings = bookings?.length ?? 0;
 
   const sales = bookings?.reduce((acc, cur) => acc + cur.totalPrice, 0) ?? 0;
-
   const checkins = confirmedStays?.length ?? 0;
-
   const totalNights =
     confirmedStays?.reduce((acc, cur) => acc + cur.numNights, 0) ?? 0;
   const occupation =

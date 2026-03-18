@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
   login,
   signup,
@@ -9,10 +9,10 @@ import {
   getAllUsers,
   adminUpdateUser,
   adminDeleteUser,
-} from "../controllers/authController";
-import { protect } from "../middleware/auth";
-import { uploadAvatarImage } from "../middleware/upload";
-import { validate } from "../middleware/validate";
+} from '../controllers/authController';
+import { protect } from '../middleware/auth';
+import { uploadAvatarImage } from '../middleware/upload';
+import { validate } from '../middleware/validate';
 import {
   loginSchema,
   signupSchema,
@@ -20,27 +20,27 @@ import {
   updateMeSchema,
   refreshTokenSchema,
   adminUpdateUserSchema,
-} from "../schemas/authSchemas";
+} from '../schemas/authSchemas';
 
 const router = Router();
 
-router.post("/login", validate(loginSchema), login);
-router.post("/signup", validate(signupSchema), signup);
-router.post("/refresh-token", validate(refreshTokenSchema), refreshToken);
+router.post('/login', validate(loginSchema), login);
+router.post('/signup', validate(signupSchema), signup);
+router.post('/refresh-token', validate(refreshTokenSchema), refreshToken);
 
 router.use(protect);
-router.get("/users", getAllUsers);
-router.patch("/users/:id", validate(adminUpdateUserSchema), adminUpdateUser);
-router.delete("/users/:id", adminDeleteUser);
-router.get("/me", getMe);
+router.get('/users', getAllUsers);
+router.patch('/users/:id', validate(adminUpdateUserSchema), adminUpdateUser);
+router.delete('/users/:id', adminDeleteUser);
+router.get('/me', getMe);
 router.patch(
-  "/update-me",
+  '/update-me',
   uploadAvatarImage,
   validate(updateMeSchema),
   updateMe,
 );
 router.patch(
-  "/update-password",
+  '/update-password',
   validate(updatePasswordSchema),
   updatePassword,
 );

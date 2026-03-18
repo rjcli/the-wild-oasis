@@ -425,8 +425,8 @@ The API uses JWT (JSON Web Tokens):
 
 ```typescript
 // Protecting routes
-router.get("/protected", authenticate, handler);
-router.post("/admin-only", authenticate, authorize("admin"), handler);
+router.get('/protected', authenticate, handler);
+router.post('/admin-only', authenticate, authorize('admin'), handler);
 ```
 
 ## Validation
@@ -435,13 +435,13 @@ Input validation uses **Zod** schemas for type-safe validation:
 
 ```typescript
 const createCabinSchema = z.object({
-  name: z.string().min(1, "Cabin name required"),
+  name: z.string().min(1, 'Cabin name required'),
   maxCapacity: z.number().int().positive(),
   regularPrice: z.number().positive(),
   discount: z.number().nonnegative().optional(),
 });
 
-router.post("/cabins", validate(createCabinSchema), createCabin);
+router.post('/cabins', validate(createCabinSchema), createCabin);
 ```
 
 ## Error Handling
@@ -485,15 +485,15 @@ yarn test:coverage
 ### Test Example
 
 ```typescript
-describe("AuthController", () => {
-  it("should login with valid credentials", async () => {
-    const res = await request(app).post("/api/v1/auth/login").send({
-      email: "admin@wilodoasis.com",
-      password: "password123",
+describe('AuthController', () => {
+  it('should login with valid credentials', async () => {
+    const res = await request(app).post('/api/v1/auth/login').send({
+      email: 'admin@wilodoasis.com',
+      password: 'password123',
     });
 
     expect(res.status).toBe(200);
-    expect(res.body.data).toHaveProperty("accessToken");
+    expect(res.body.data).toHaveProperty('accessToken');
   });
 });
 ```

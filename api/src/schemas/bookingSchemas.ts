@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const createBookingSchema = z.object({
   startDate: z.coerce.date(),
@@ -16,7 +16,7 @@ export const createBookingSchema = z.object({
 });
 
 export const updateBookingSchema = z.object({
-  status: z.enum(["unconfirmed", "checked_in", "checked_out"]).optional(),
+  status: z.enum(['unconfirmed', 'checked_in', 'checked_out']).optional(),
   isPaid: z.boolean().optional(),
   hasBreakfast: z.boolean().optional(),
   extrasPrice: z.coerce.number().min(0).optional(),

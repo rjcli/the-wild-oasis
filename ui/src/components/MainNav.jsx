@@ -71,7 +71,6 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-// eslint-disable-next-line react/prop-types
 const MainNav = ({ isCollapsed = false }) => {
   const { user } = useCurrentUser();
   const isAdmin = user?.role === 'admin';

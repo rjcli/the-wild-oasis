@@ -85,7 +85,6 @@ const Open = ({ children, opens: opensWindowName }) => {
   });
 };
 
-// eslint-disable-next-line react/prop-types
 const Window = ({ children, name }) => {
   const { openName, close, open } = useContext(ModalContext);
 

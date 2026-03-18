@@ -13,7 +13,6 @@ import Table from '../../components/Table';
 import Menus from '../../components/Menus';
 import Modal from '../../components/Modal';
 import ConfirmDelete from '../../components/ConfirmDelete';
-
 import { formatCurrency } from '../../utils/helpers';
 import { formatDistanceFromNow } from '../../utils/helpers';
 import { useCheckout } from '../check-in-out/useCheckout';
@@ -49,11 +48,9 @@ const Amount = styled.div`
 const BookingRow = ({
   booking: {
     id: bookingId,
-    created_at,
     startDate,
     endDate,
     numNights,
-    numGuests,
     totalPrice,
     status,
     guests,

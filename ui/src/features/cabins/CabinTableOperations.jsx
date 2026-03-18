@@ -9,7 +9,6 @@ import {
 } from 'react-icons/hi2';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 
-/* ─── Date-range pickers ──────────────────────────────────────────────────── */
 const Toolbar = styled.div`
   display: flex;
   align-items: center;
@@ -63,7 +62,6 @@ const ClearBtn = styled.button`
   }
 `;
 
-/* ─── Dropdown button + panel ─────────────────────────────────────────────── */
 const DropdownWrap = styled.div`
   position: relative;
 `;
@@ -145,7 +143,6 @@ const PanelItem = styled.li`
   }
 `;
 
-/* ─── Data ────────────────────────────────────────────────────────────────── */
 const FILTER_OPTIONS = [
   { value: 'all', label: 'All cabins' },
   { value: 'no-discount', label: 'No discount' },
@@ -163,7 +160,6 @@ const SORT_OPTIONS = [
 
 const today = () => format(new Date(), 'yyyy-MM-dd');
 
-/* ─── Component ──────────────────────────────────────────────────────────── */
 const CabinTableOperations = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filterOpen, setFilterOpen] = useState(false);
@@ -195,15 +191,12 @@ const CabinTableOperations = () => {
     });
   };
 
-  const activeFilterLabel =
-    FILTER_OPTIONS.find((o) => o.value === activeFilter)?.label ?? 'Filter';
   const activeSortLabel = SORT_OPTIONS.find(
     (o) => o.value === activeSort,
   )?.label;
 
   return (
     <Toolbar>
-      {/* Date range */}
       <DateRangeWrap>
         <DateLabel htmlFor='checkIn'>From</DateLabel>
         <DateInput
@@ -228,7 +221,6 @@ const CabinTableOperations = () => {
         )}
       </DateRangeWrap>
 
-      {/* Filter dropdown */}
       <DropdownWrap ref={filterRef}>
         <DropBtn
           type='button'
@@ -262,7 +254,6 @@ const CabinTableOperations = () => {
         )}
       </DropdownWrap>
 
-      {/* Sort dropdown */}
       <DropdownWrap ref={sortRef}>
         <DropBtn
           type='button'

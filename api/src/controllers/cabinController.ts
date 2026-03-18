@@ -1,18 +1,18 @@
-import { Request, Response, NextFunction } from "express";
-import path from "node:path";
-import sharp from "sharp";
-import prisma from "../config/prisma";
-import { AppError } from "../utils/AppError";
-import { catchAsync } from "../utils/catchAsync";
-import { cabinUploadsDir } from "../middleware/upload";
-import type { CreateCabinDto, UpdateCabinDto } from "../schemas/cabinSchemas";
+import { Request, Response, NextFunction } from 'express';
+import path from 'node:path';
+import sharp from 'sharp';
+import prisma from '../config/prisma';
+import { AppError } from '../utils/AppError';
+import { catchAsync } from '../utils/catchAsync';
+import { cabinUploadsDir } from '../middleware/upload';
+import type { CreateCabinDto, UpdateCabinDto } from '../schemas/cabinSchemas';
 
 // ─── GET /api/v1/cabins ───────────────────────────────────────────────────────
 export const getAllCabins = catchAsync(async (_req: Request, res: Response) => {
-  const cabins = await prisma.cabin.findMany({ orderBy: { name: "asc" } });
+  const cabins = await prisma.cabin.findMany({ orderBy: { name: 'asc' } });
   res
     .status(200)
-    .json({ status: "success", results: cabins.length, data: { cabins } });
+    .json({ status: 'success', results: cabins.length, data: { cabins } });
 });
 
 // ─── GET /api/v1/cabins/status ────────────────────────────────────────────────
@@ -30,14 +30,14 @@ export const getCabinsStatus = catchAsync(
     //   booking.startDate < end  AND  booking.endDate > start
     const bookings = await prisma.booking.findMany({
       where: {
-        status: { in: ["unconfirmed", "checked_in"] },
+        status: { in: ['unconfirmed', 'checked_in'] },
         startDate: { lt: end },
         endDate: { gt: start },
       },
       select: { cabinId: true },
     });
     const bookedCabinIds = [...new Set(bookings.map((b) => b.cabinId))];
-    res.status(200).json({ status: "success", data: { bookedCabinIds } });
+    res.status(200).json({ status: 'success', data: { bookedCabinIds } });
   },
 );
 
@@ -45,12 +45,12 @@ export const getCabinsStatus = catchAsync(
 export const getCabin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = Number.parseInt(req.params.id, 10);
-    if (Number.isNaN(id)) return next(new AppError("Invalid cabin ID.", 400));
+    if (Number.isNaN(id)) return next(new AppError('Invalid cabin ID.', 400));
 
     const cabin = await prisma.cabin.findUnique({ where: { id } });
-    if (!cabin) return next(new AppError("No cabin found with that ID.", 404));
+    if (!cabin) return next(new AppError('No cabin found with that ID.', 404));
 
-    res.status(200).json({ status: "success", data: { cabin } });
+    res.status(200).json({ status: 'success', data: { cabin } });
   },
 );
 
@@ -62,8 +62,8 @@ export const createCabin = catchAsync(async (req: Request, res: Response) => {
   if (req.file) {
     const filename = `cabin-${Date.now()}-${Math.random().toString(36).slice(2)}.jpeg`;
     await sharp(req.file.buffer)
-      .resize(800, 600, { fit: "cover" })
-      .toFormat("jpeg")
+      .resize(800, 600, { fit: 'cover' })
+      .toFormat('jpeg')
       .jpeg({ quality: 85 })
       .toFile(path.join(cabinUploadsDir, filename));
     imagePath = `uploads/cabins/${filename}`;
@@ -73,14 +73,14 @@ export const createCabin = catchAsync(async (req: Request, res: Response) => {
     data: { ...body, ...(imagePath && { image: imagePath }) },
   });
 
-  res.status(201).json({ status: "success", data: { cabin } });
+  res.status(201).json({ status: 'success', data: { cabin } });
 });
 
 // ─── PATCH /api/v1/cabins/:id ─────────────────────────────────────────────────
 export const updateCabin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = Number.parseInt(req.params.id, 10);
-    if (Number.isNaN(id)) return next(new AppError("Invalid cabin ID.", 400));
+    if (Number.isNaN(id)) return next(new AppError('Invalid cabin ID.', 400));
 
     const body = req.body as UpdateCabinDto;
 
@@ -88,8 +88,8 @@ export const updateCabin = catchAsync(
     if (req.file) {
       const filename = `cabin-${Date.now()}-${Math.random().toString(36).slice(2)}.jpeg`;
       await sharp(req.file.buffer)
-        .resize(800, 600, { fit: "cover" })
-        .toFormat("jpeg")
+        .resize(800, 600, { fit: 'cover' })
+        .toFormat('jpeg')
         .jpeg({ quality: 85 })
         .toFile(path.join(cabinUploadsDir, filename));
       imagePath = `uploads/cabins/${filename}`;
@@ -100,7 +100,7 @@ export const updateCabin = catchAsync(
       data: { ...body, ...(imagePath && { image: imagePath }) },
     });
 
-    res.status(200).json({ status: "success", data: { cabin } });
+    res.status(200).json({ status: 'success', data: { cabin } });
   },
 );
 
@@ -108,10 +108,10 @@ export const updateCabin = catchAsync(
 export const deleteCabin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = Number.parseInt(req.params.id, 10);
-    if (Number.isNaN(id)) return next(new AppError("Invalid cabin ID.", 400));
+    if (Number.isNaN(id)) return next(new AppError('Invalid cabin ID.', 400));
 
     await prisma.cabin.delete({ where: { id } });
 
-    res.status(204).json({ status: "success", data: null });
+    res.status(204).json({ status: 'success', data: null });
   },
 );

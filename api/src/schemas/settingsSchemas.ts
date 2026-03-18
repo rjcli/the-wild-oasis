@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const updateSettingsSchema = z
   .object({
@@ -8,7 +8,7 @@ export const updateSettingsSchema = z
     breakfastPrice: z.coerce.number().positive().optional(),
   })
   .refine((data) => Object.keys(data).length > 0, {
-    message: "At least one field must be provided",
+    message: 'At least one field must be provided',
   });
 
 export type UpdateSettingsDto = z.infer<typeof updateSettingsSchema>;

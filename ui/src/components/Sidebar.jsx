@@ -56,7 +56,6 @@ const ToggleButton = styled.button`
   }
 `;
 
-// eslint-disable-next-line react/prop-types
 const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
   return (
     <StyledSidebar $isCollapsed={isCollapsed}>

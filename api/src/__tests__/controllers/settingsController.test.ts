@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from "express";
-import prisma from "../../config/prisma";
-import * as settingsController from "../../controllers/settingsController";
-import { executeHandler } from "../utils/testHelpers";
+import { Request, Response, NextFunction } from 'express';
+import prisma from '../../config/prisma';
+import * as settingsController from '../../controllers/settingsController';
+import { executeHandler } from '../utils/testHelpers';
 
-jest.mock("../../config/prisma");
+jest.mock('../../config/prisma');
 
-describe("settingsController", () => {
+describe('settingsController', () => {
   let mockReq: Partial<Request>;
   let mockRes: Partial<Response>;
   let mockNext: jest.Mock<NextFunction>;
@@ -22,8 +22,8 @@ describe("settingsController", () => {
     mockNext = jest.fn();
   });
 
-  describe("getSettings", () => {
-    it("should return existing settings", async () => {
+  describe('getSettings', () => {
+    it('should return existing settings', async () => {
       const settings = {
         id: 1,
         minBookingLength: 3,
@@ -47,12 +47,12 @@ describe("settingsController", () => {
 
       expect(statusSpy).toHaveBeenCalledWith(200);
       expect(jsonSpy).toHaveBeenCalledWith({
-        status: "success",
+        status: 'success',
         data: { settings },
       });
     });
 
-    it("should create settings if not found", async () => {
+    it('should create settings if not found', async () => {
       const newSettings = {
         id: 1,
         minBookingLength: 1,
@@ -82,7 +82,7 @@ describe("settingsController", () => {
       expect(statusSpy).toHaveBeenCalledWith(200);
     });
 
-    it("should return error if settings could not be created", async () => {
+    it('should return error if settings could not be created', async () => {
       (prisma.settings.findUnique as jest.Mock).mockResolvedValue(null);
       (prisma.settings.create as jest.Mock).mockResolvedValue(null);
 
@@ -97,8 +97,8 @@ describe("settingsController", () => {
     });
   });
 
-  describe("updateSettings", () => {
-    it("should update settings", async () => {
+  describe('updateSettings', () => {
+    it('should update settings', async () => {
       mockReq.body = {
         minBookingLength: 5,
         maxBookingLength: 60,
@@ -129,12 +129,12 @@ describe("settingsController", () => {
 
       expect(statusSpy).toHaveBeenCalledWith(200);
       expect(jsonSpy).toHaveBeenCalledWith({
-        status: "success",
+        status: 'success',
         data: { settings: updatedSettings },
       });
     });
 
-    it("should create settings if not exists", async () => {
+    it('should create settings if not exists', async () => {
       mockReq.body = {
         minBookingLength: 3,
         breakfastPrice: 12,

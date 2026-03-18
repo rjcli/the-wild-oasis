@@ -3,10 +3,8 @@ import Button from '../../components/Button';
 import Form from '../../components/Form';
 import FormRow from '../../components/FormRow';
 import Input from '../../components/Input';
-
 import { useUpdatePassword } from './useUpdatePassword';
 
-// eslint-disable-next-line react/prop-types
 const UpdatePasswordForm = ({ onCloseModal }) => {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;

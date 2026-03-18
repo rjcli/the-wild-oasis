@@ -139,7 +139,6 @@ const CreateCabinForm = ({ cabinToEdit = {}, onCloseModal }) => {
         </FormRow>
 
         <FormRow>
-          {/* type is an HTML attribute! */}
           <Button
             variation='secondary'
             type='reset'

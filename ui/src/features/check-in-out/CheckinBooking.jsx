@@ -6,7 +6,6 @@ import Heading from '../../components/Heading';
 import ButtonGroup from '../../components/ButtonGroup';
 import Button from '../../components/Button';
 import ButtonText from '../../components/ButtonText';
-
 import { useMoveBack } from '../../hooks/useMoveBack';
 
 const Box = styled.div`

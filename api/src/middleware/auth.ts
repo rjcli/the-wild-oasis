@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
-import { env } from "../config/env";
-import { AppError } from "../utils/AppError";
-import prisma from "../config/prisma";
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+import { env } from '../config/env';
+import { AppError } from '../utils/AppError';
+import prisma from '../config/prisma';
 
 export interface AuthRequest extends Request {
   userId?: string;
@@ -23,16 +23,16 @@ export const protect = async (
   try {
     // 1. Extract token from Authorization header
     const authHeader = req.headers.authorization;
-    if (!authHeader?.startsWith("Bearer ")) {
+    if (!authHeader?.startsWith('Bearer ')) {
       return next(
         new AppError(
-          "You are not logged in. Please log in to get access.",
+          'You are not logged in. Please log in to get access.',
           401,
         ),
       );
     }
 
-    const token = authHeader.split(" ")[1];
+    const token = authHeader.split(' ')[1];
 
     // 2. Verify token
     let decoded: JwtPayload;
@@ -40,7 +40,7 @@ export const protect = async (
       decoded = jwt.verify(token, env.JWT_SECRET) as JwtPayload;
     } catch {
       return next(
-        new AppError("Invalid or expired token. Please log in again.", 401),
+        new AppError('Invalid or expired token. Please log in again.', 401),
       );
     }
 
@@ -52,7 +52,7 @@ export const protect = async (
 
     if (!user) {
       return next(
-        new AppError("The user belonging to this token no longer exists.", 401),
+        new AppError('The user belonging to this token no longer exists.', 401),
       );
     }
 

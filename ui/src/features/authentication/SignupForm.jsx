@@ -7,7 +7,6 @@ import { useSignup } from './useSignup';
 
 // Email regex: /\S+@\S+\.\S+/
 
-// eslint-disable-next-line react/prop-types
 const SignupForm = ({ onCloseModal, onOpenModal }) => {
   const { register, handleSubmit, formState, reset, getValues } = useForm();
   const { errors } = formState;

@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-import prisma from "../config/prisma";
-import { AppError } from "../utils/AppError";
-import { catchAsync } from "../utils/catchAsync";
-import type { UpdateSettingsDto } from "../schemas/settingsSchemas";
+import { Request, Response, NextFunction } from 'express';
+import prisma from '../config/prisma';
+import { AppError } from '../utils/AppError';
+import { catchAsync } from '../utils/catchAsync';
+import type { UpdateSettingsDto } from '../schemas/settingsSchemas';
 
 // ─── GET /api/v1/settings ─────────────────────────────────────────────────────
 export const getSettings = catchAsync(
@@ -15,9 +15,9 @@ export const getSettings = catchAsync(
     }
 
     if (!settings)
-      return next(new AppError("Settings could not be loaded.", 500));
+      return next(new AppError('Settings could not be loaded.', 500));
 
-    res.status(200).json({ status: "success", data: { settings } });
+    res.status(200).json({ status: 'success', data: { settings } });
   },
 );
 
@@ -32,6 +32,6 @@ export const updateSettings = catchAsync(
       create: { id: 1, ...body },
     });
 
-    res.status(200).json({ status: "success", data: { settings } });
+    res.status(200).json({ status: 'success', data: { settings } });
   },
 );
