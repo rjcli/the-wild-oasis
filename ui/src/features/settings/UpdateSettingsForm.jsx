@@ -5,7 +5,7 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineUsers,
 } from 'react-icons/hi2';
-import Spinner from '../../ui/Spinner';
+import Spinner from '../../components/Spinner';
 import { useSettings } from './useSettings';
 import { useUpdateSetting } from './useUpdateSettings';
 

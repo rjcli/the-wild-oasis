@@ -12,8 +12,8 @@ import {
   HiOutlineUserPlus,
   HiOutlineTrash,
 } from 'react-icons/hi2';
-import Button from '../../ui/Button';
-import Spinner from '../../ui/Spinner';
+import Button from '../../components/Button';
+import Spinner from '../../components/Spinner';
 import { useCabins } from '../cabins/useCabins';
 import { useSettings } from '../settings/useSettings';
 import { useCreateBooking } from './useCreateBooking';

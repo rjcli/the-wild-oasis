@@ -7,7 +7,7 @@ import {
   Tooltip,
 } from 'recharts';
 import styled from 'styled-components';
-import Heading from '../../ui/Heading';
+import Heading from '../../components/Heading';
 
 const ChartBox = styled.div`
   /* Box */

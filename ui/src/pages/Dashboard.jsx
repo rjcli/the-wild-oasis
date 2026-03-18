@@ -9,9 +9,9 @@ import {
   HiOutlineSparkles,
   HiOutlineMoon,
 } from 'react-icons/hi2';
-import Heading from '../ui/Heading';
-import Row from '../ui/Row';
-import Spinner from '../ui/Spinner';
+import Heading from '../components/Heading';
+import Row from '../components/Row';
+import Spinner from '../components/Spinner';
 import DashboardFilter from '../features/dashboard/DashboardFilter';
 import DashboardLayout from '../features/dashboard/DashboardLayout';
 import Stats from '../features/dashboard/Stats';

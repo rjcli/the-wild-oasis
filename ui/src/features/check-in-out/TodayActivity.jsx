@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { useQuery } from '@tanstack/react-query';
 import { getStaysTodayActivity } from '../../services/apiBookings';
 
-import Heading from '../../ui/Heading';
-import Row from '../../ui/Row';
-import Spinner from '../../ui/Spinner';
+import Heading from '../../components/Heading';
+import Row from '../../components/Row';
+import Spinner from '../../components/Spinner';
 import TodayItem from './TodayItem';
 
 const StyledToday = styled.div`

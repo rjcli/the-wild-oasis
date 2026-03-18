@@ -1,6 +1,8 @@
 {
   "name": "the-wild-oasis_api",
+  "private": true,
   "version": "1.0.0",
+  "author": "Rashmi Raj",
   "description": "Wild Oasis Hotel Management REST API — Node.js + TypeScript + PostgreSQL",
   "main": "dist/server.js",
   "scripts": {

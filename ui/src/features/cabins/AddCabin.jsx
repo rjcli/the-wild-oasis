@@ -1,5 +1,5 @@
-import Button from '../../ui/Button';
-import Modal from '../../ui/Modal';
+import Button from '../../components/Button';
+import Modal from '../../components/Modal';
 import CreateCabinForm from './CreateCabinForm';
 import { useCurrentUser } from '../authentication/useCurrentUser';
 

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useCabins } from '../cabins/useCabins';
-import Heading from '../../ui/Heading';
-import Spinner from '../../ui/Spinner';
+import Heading from '../../components/Heading';
+import Spinner from '../../components/Spinner';
 import { formatCurrency } from '../../utils/helpers';
 
 const CollageWrapper = styled.div`

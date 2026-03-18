@@ -11,8 +11,8 @@ import {
 import { useCabin } from '../features/cabins/useCabin';
 import { useCabinsStatus } from '../features/cabins/useCabinsStatus';
 import { formatCurrency } from '../utils/helpers';
-import Spinner from '../ui/Spinner';
-import Button from '../ui/Button';
+import Spinner from '../components/Spinner';
+import Button from '../components/Button';
 
 const Page = styled.div`
   max-width: 90rem;

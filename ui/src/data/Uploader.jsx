@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '../ui/Button';
+import Button from '../components/Button';
 
 const Uploader = () => {
   const [isLoading, setIsLoading] = useState(false);

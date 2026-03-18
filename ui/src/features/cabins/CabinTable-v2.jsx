@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Spinner from '../../ui/Spinner';
+import Spinner from '../../components/Spinner';
 import CabinRow from './CabinRow';
 import { useCabins } from './useCabins';
 

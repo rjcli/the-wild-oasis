@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useQuery } from '@tanstack/react-query';
 import { getCabins } from '../../services/apiCabins';
-import Spinner from '../../ui/Spinner';
+import Spinner from '../../components/Spinner';
 import CabinRow from './CabinRow';
 
 const Table = styled.div`

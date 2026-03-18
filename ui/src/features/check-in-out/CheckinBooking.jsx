@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import BookingDataBox from '../../features/bookings/BookingDataBox';
 
-import Row from '../../ui/Row';
-import Heading from '../../ui/Heading';
-import ButtonGroup from '../../ui/ButtonGroup';
-import Button from '../../ui/Button';
-import ButtonText from '../../ui/ButtonText';
+import Row from '../../components/Row';
+import Heading from '../../components/Heading';
+import ButtonGroup from '../../components/ButtonGroup';
+import Button from '../../components/Button';
+import ButtonText from '../../components/ButtonText';
 
 import { useMoveBack } from '../../hooks/useMoveBack';
 

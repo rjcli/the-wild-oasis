@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { HiArrowUpOnSquare } from 'react-icons/hi2';
 
 import BookingDataBox from './BookingDataBox';
-import Row from '../../ui/Row';
-import Heading from '../../ui/Heading';
-import Tag from '../../ui/Tag';
-import ButtonGroup from '../../ui/ButtonGroup';
-import Button from '../../ui/Button';
-import ButtonText from '../../ui/ButtonText';
-import Spinner from '../../ui/Spinner';
-import Modal from '../../ui/Modal';
-import ConfirmDelete from '../../ui/ConfirmDelete';
+import Row from '../../components/Row';
+import Heading from '../../components/Heading';
+import Tag from '../../components/Tag';
+import ButtonGroup from '../../components/ButtonGroup';
+import Button from '../../components/Button';
+import ButtonText from '../../components/ButtonText';
+import Spinner from '../../components/Spinner';
+import Modal from '../../components/Modal';
+import ConfirmDelete from '../../components/ConfirmDelete';
 
 import { useMoveBack } from '../../hooks/useMoveBack';
 import { useBooking } from './useBooking';

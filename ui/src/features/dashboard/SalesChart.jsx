@@ -10,7 +10,7 @@ import {
 import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns';
 import styled from 'styled-components';
 import DashboardBox from './DashboardBox';
-import Heading from '../../ui/Heading';
+import Heading from '../../components/Heading';
 import { formatCurrency } from '../../utils/helpers';
 
 const StyledSalesChart = styled(DashboardBox)`

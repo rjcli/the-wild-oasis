@@ -1,10 +1,10 @@
 import BookingRow from './BookingRow';
-import Table from '../../ui/Table';
-import Menus from '../../ui/Menus';
-import Empty from '../../ui/Empty';
+import Table from '../../components/Table';
+import Menus from '../../components/Menus';
+import Empty from '../../components/Empty';
 import { useBookings } from '../bookings/useBookings';
-import Spinner from '../../ui/Spinner';
-import Pagination from '../../ui/Pagination';
+import Spinner from '../../components/Spinner';
+import Pagination from '../../components/Pagination';
 
 const BookingTable = () => {
   const { bookings, isLoading, count } = useBookings();

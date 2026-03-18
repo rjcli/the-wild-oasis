@@ -15,7 +15,7 @@ import {
 import { useUsers } from './useUsers';
 import { useAdminUpdateUser, useAdminDeleteUser } from './useAdminUserActions';
 import { useCurrentUser } from './useCurrentUser';
-import Spinner from '../../ui/Spinner';
+import Spinner from '../../components/Spinner';
 
 const Wrapper = styled.div`
   background-color: var(--color-grey-0);

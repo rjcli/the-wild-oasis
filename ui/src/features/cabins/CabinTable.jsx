@@ -1,8 +1,8 @@
-import Spinner from '../../ui/Spinner';
+import Spinner from '../../components/Spinner';
 import { useCabins } from './useCabins';
 import { useCabinsStatus } from './useCabinsStatus';
-import Table from '../../ui/Table';
-import Menus from '../../ui/Menus';
+import Table from '../../components/Table';
+import Menus from '../../components/Menus';
 import CabinRow from './CabinRow';
 import { useSearchParams } from 'react-router-dom';
 import { useCurrentUser } from '../authentication/useCurrentUser';

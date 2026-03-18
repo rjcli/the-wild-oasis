@@ -2,12 +2,12 @@ import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { createCabin } from '../../services/apiCabins';
-import FormRow from '../../ui/FormRow';
-import Input from '../../ui/Input';
-import Form from '../../ui/Form';
-import Button from '../../ui/Button';
-import FileInput from '../../ui/FileInput';
-import Textarea from '../../ui/Textarea';
+import FormRow from '../../components/FormRow';
+import Input from '../../components/Input';
+import Form from '../../components/Form';
+import Button from '../../components/Button';
+import FileInput from '../../components/FileInput';
+import Textarea from '../../components/Textarea';
 
 const CreateCabinForm = () => {
   const queryClient = useQueryClient();

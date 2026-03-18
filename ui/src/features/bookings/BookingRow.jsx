@@ -8,11 +8,11 @@ import {
 } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
 
-import Tag from '../../ui/Tag';
-import Table from '../../ui/Table';
-import Menus from '../../ui/Menus';
-import Modal from '../../ui/Modal';
-import ConfirmDelete from '../../ui/ConfirmDelete';
+import Tag from '../../components/Tag';
+import Table from '../../components/Table';
+import Menus from '../../components/Menus';
+import Modal from '../../components/Modal';
+import ConfirmDelete from '../../components/ConfirmDelete';
 
 import { formatCurrency } from '../../utils/helpers';
 import { formatDistanceFromNow } from '../../utils/helpers';

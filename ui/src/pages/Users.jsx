@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { HiOutlineUserPlus, HiOutlineUsers } from 'react-icons/hi2';
-import Heading from '../ui/Heading';
-import Row from '../ui/Row';
-import Button from '../ui/Button';
+import Heading from '../components/Heading';
+import Row from '../components/Row';
+import Button from '../components/Button';
 import CreateUserForm from '../features/authentication/CreateUserForm';
 import UsersList from '../features/authentication/UsersList';
 import { useCurrentUser } from '../features/authentication/useCurrentUser';

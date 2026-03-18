@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import Button from '../../ui/Button';
-import Form from '../../ui/Form';
-import Input from '../../ui/Input';
-import FormRow from '../../ui/FormRow';
+import Button from '../../components/Button';
+import Form from '../../components/Form';
+import Input from '../../components/Input';
+import FormRow from '../../components/FormRow';
 import { useLogin } from './useLogin';
 
 // eslint-disable-next-line react/prop-types

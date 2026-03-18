@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import Button from '../../ui/Button';
-import Form from '../../ui/Form';
-import FormRow from '../../ui/FormRow';
-import Input from '../../ui/Input';
+import Button from '../../components/Button';
+import Form from '../../components/Form';
+import FormRow from '../../components/FormRow';
+import Input from '../../components/Input';
 
 import { useUpdatePassword } from './useUpdatePassword';
 

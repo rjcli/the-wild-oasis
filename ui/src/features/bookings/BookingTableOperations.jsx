@@ -1,6 +1,6 @@
-import SortBy from '../../ui/SortBy';
-import Filter from '../../ui/Filter';
-import TableOperations from '../../ui/TableOperations';
+import SortBy from '../../components/SortBy';
+import Filter from '../../components/Filter';
+import TableOperations from '../../components/TableOperations';
 
 const BookingTableOperations = () => {
   return (

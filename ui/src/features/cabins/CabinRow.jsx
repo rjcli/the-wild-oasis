@@ -7,10 +7,10 @@ import { formatCurrency } from '../../utils/helpers';
 import CreateCabinForm from './CreateCabinForm';
 import { useCreateCabin } from './useCreateCabin';
 import { useDeleteCabin } from './useDeleteCabin';
-import Modal from '../../ui/Modal';
-import ConfirmDelete from '../../ui/ConfirmDelete';
-import Table from '../../ui/Table';
-import Menus from '../../ui/Menus';
+import Modal from '../../components/Modal';
+import ConfirmDelete from '../../components/ConfirmDelete';
+import Table from '../../components/Table';
+import Menus from '../../components/Menus';
 
 const Img = styled.img`
   display: block;

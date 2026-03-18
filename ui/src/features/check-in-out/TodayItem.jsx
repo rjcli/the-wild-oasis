@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Tag from '../../ui/Tag';
-import { Flag } from '../../ui/Flag';
-import Button from '../../ui/Button';
+import Tag from '../../components/Tag';
+import { Flag } from '../../components/Flag';
+import Button from '../../components/Button';
 
 const StyledTodayItem = styled.li`
   display: grid;

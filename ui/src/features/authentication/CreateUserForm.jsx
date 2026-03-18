@@ -7,7 +7,7 @@ import {
   HiOutlineUserCircle,
   HiOutlineCheckCircle,
 } from 'react-icons/hi2';
-import Button from '../../ui/Button';
+import Button from '../../components/Button';
 import { useCreateUser } from './useCreateUser';
 
 const Card = styled.div`

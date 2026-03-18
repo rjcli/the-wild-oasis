@@ -1,9 +1,9 @@
-import Heading from '../ui/Heading';
-import Row from '../ui/Row';
+import Heading from '../components/Heading';
+import Row from '../components/Row';
 import BookingTable from '../features/bookings/BookingTable';
 import BookingTableOperations from '../features/bookings/BookingTableOperations';
-import Modal from '../ui/Modal';
-import Button from '../ui/Button';
+import Modal from '../components/Modal';
+import Button from '../components/Button';
 import CreateBookingForm from '../features/bookings/CreateBookingForm';
 
 const Bookings = () => {

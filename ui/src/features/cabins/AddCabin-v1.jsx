@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Button from '../../ui/Button';
-import Modal from '../../ui/Modal';
+import Button from '../../components/Button';
+import Modal from '../../components/Modal';
 import CreateCabinForm from './CreateCabinForm';
 
 const AddCabin = () => {
